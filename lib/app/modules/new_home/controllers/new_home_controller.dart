@@ -76,6 +76,7 @@ class NewHomeController extends GetxController {
 
   // for Location Info
   var initCountry = 'USA'.obs;
+  var c='India'.obs;
 
   //filter by country news
   RxString countryCode = 'us'.obs;
@@ -90,10 +91,6 @@ class NewHomeController extends GetxController {
   ///for Drop Down button Sort
   var sortList = ['Newest', 'Oldest'];
   var selectedDrowpdown = 'Newest'.obs;
-
-  void setCountry(var value) {
-    initCountry.value = value;
-  }
 
   /// Function to change Url
   void changeUrlFunction() {
@@ -181,6 +178,12 @@ class NewHomeController extends GetxController {
   void setSelected(String value) {
     selectedDrowpdown.value = value;
   }
+  var connectionStatus = 0.obs;
+
+  /// Listening Internet Connection Request in Stream.
+  late StreamSubscription<InternetConnectionStatus> _listner;
+
+
 
   @override
   void onInit() {

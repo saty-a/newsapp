@@ -77,7 +77,7 @@ class NewHomeView extends GetView<NewHomeController> {
                         size: 15,
                       ),
                       Obx(() => Text(
-                            controller.getCountry(),
+                            controller.c.value,
                             style: const TextStyle(fontSize: 14),
                           )),
                     ],
@@ -487,7 +487,7 @@ class NewHomeView extends GetView<NewHomeController> {
               groupValue: controller.initCountry.value,
               activeColor: AppColors.primaryColor,
               onChanged: (value) {
-                controller.setCountry(value);
+                controller.initCountry.value=value.toString();
               },
             ),
             RadioListTile(
@@ -497,7 +497,7 @@ class NewHomeView extends GetView<NewHomeController> {
               groupValue: controller.initCountry.value,
               activeColor: AppColors.primaryColor,
               onChanged: (value) {
-                controller.setCountry(value);
+                controller.initCountry.value=value.toString();
               },
             ),
             RadioListTile(
@@ -507,7 +507,7 @@ class NewHomeView extends GetView<NewHomeController> {
               groupValue: controller.initCountry.value,
               activeColor: AppColors.primaryColor,
               onChanged: (value) {
-                controller.setCountry(value);
+                controller.initCountry.value=value.toString();
               },
             ),
             RadioListTile(
@@ -517,7 +517,7 @@ class NewHomeView extends GetView<NewHomeController> {
               groupValue: controller.initCountry.value,
               activeColor: AppColors.primaryColor,
               onChanged: (value) {
-                controller.setCountry(value);
+                controller.initCountry.value=value.toString();
               },
             ),
             RadioListTile(
@@ -527,7 +527,7 @@ class NewHomeView extends GetView<NewHomeController> {
               controlAffinity: ListTileControlAffinity.trailing,
               groupValue: controller.initCountry.value,
               onChanged: (value) {
-                controller.setCountry(value);
+                controller.initCountry.value=value.toString();
               },
             ),
             RadioListTile(
@@ -537,7 +537,7 @@ class NewHomeView extends GetView<NewHomeController> {
               controlAffinity: ListTileControlAffinity.trailing,
               groupValue: controller.initCountry.value,
               onChanged: (value) {
-                controller.setCountry(value);
+                controller.initCountry.value=value.toString();
               },
             ),
           ],),
@@ -547,6 +547,7 @@ class NewHomeView extends GetView<NewHomeController> {
             child: PrimaryFilledButton(
                 onTap: () async {
                   // print(controller.getCountry());
+                  controller.c.value=controller.initCountry.value;
                   controller.displayCountryCode();
                   // print("CountryCode Here ===>>> ${controller.countryCode}");
                   controller.getNewsList();
