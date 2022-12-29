@@ -35,7 +35,7 @@ class NewHomeView extends GetView<NewHomeController> {
             children: const [
               Text(
                 'MyNEWS',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
               )
             ],
           ),
@@ -59,18 +59,23 @@ class NewHomeView extends GetView<NewHomeController> {
                   });
             },
             child: Padding(
-              padding: const EdgeInsets.only(right: 20),
+              padding: const EdgeInsets.only(right: 20, top: 5),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
-                    'LOCATION',
-                    style: TextStyle(fontSize: 14),
+                  const Padding(
+                    padding: EdgeInsets.only(bottom: 4),
+                    child: Text(
+                      'LOCATION',
+                      style: TextStyle(fontSize: 12),
+                    ),
                   ),
                   Row(
                     children: [
-                      const Icon(Icons.location_on),
+                      const Icon(
+                        Icons.location_on,
+                        size: 15,
+                      ),
                       Obx(() => Text(
                             controller.getCountry(),
                             style: const TextStyle(fontSize: 14),
@@ -96,17 +101,23 @@ class NewHomeView extends GetView<NewHomeController> {
               });
         },
         backgroundColor: AppColors.primaryColor,
-        child:Obx(() => controller. isFilter.value==true?Badge(child: const Icon(Icons.filter_alt),
-        badgeColor: Colors.redAccent,
-        ) :const Icon(Icons.filter_alt_outlined),),
-
+        child: Obx(
+          () => controller.isFilter.value == true
+              ? Badge(
+                  child: const Icon(Icons.filter_alt_outlined,size: 35,),
+                  badgeColor: Colors.redAccent,
+                  toAnimate: true,
+                  position: BadgePosition.bottomEnd(bottom: 26,end: -2),
+                )
+              : const Icon(Icons.filter_alt_outlined,size: 35,),
+        ),
       ),
       body: Obx(() => !(controller.isInternetConnected.value)
           ? Center(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
-                children:  [
+                children: [
                   const Icon(
                     Icons.signal_wifi_connected_no_internet_4,
                     color: Colors.grey,
@@ -114,17 +125,19 @@ class NewHomeView extends GetView<NewHomeController> {
                   ),
                   const Text(
                     'No Internet Connection!',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.normal,fontFamily: 'helveticaneue'),
+                    style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.normal,
+                        fontFamily: 'helveticaneue'),
                   ),
                   Padding(
-                    padding: const EdgeInsets.all(20),
-                    child: PrimaryFilledButton(
-                      onTap: (){
-                        controller.getNewsList();
-                      }, text: 'Try Again',
-
-                    )
-                  )
+                      padding: const EdgeInsets.all(20),
+                      child: PrimaryFilledButton(
+                        onTap: () {
+                          controller.getNewsList();
+                        },
+                        text: 'Try Again',
+                      ))
                 ],
               ),
             )
@@ -138,7 +151,7 @@ class NewHomeView extends GetView<NewHomeController> {
                             transition: Transition.fadeIn);
                       },
                       child: Padding(
-                        padding: const EdgeInsets.all(20.0),
+                        padding: const EdgeInsets.only(top: 20.0,left: 20,right: 20,bottom: 10),
                         child: Container(
                             padding: const EdgeInsets.all(15),
                             width: double.infinity,
@@ -146,75 +159,77 @@ class NewHomeView extends GetView<NewHomeController> {
                                 color: Colors.grey.shade200,
                                 borderRadius: const BorderRadius.all(
                                     Radius.circular(10))),
-                            child:  Row(children: const [
-                               Text(
-                                'Search for news, topics',
-                                style:
-                                TextStyle(fontSize: 16, color: Colors.grey),
-                              ),
-                              Spacer(),
-                              Icon(Icons.search,color: Colors.grey,size: 20,)
-                            ],)),
+                            child: Row(
+                              children: const [
+                                Text(
+                                  'Search for news, topics',
+                                  style: TextStyle(
+                                      fontSize: 16, color: Colors.grey),
+                                ),
+                                Spacer(),
+                                Icon(
+                                  Icons.search,
+                                  color: Colors.grey,
+                                  size: 20,
+                                )
+                              ],
+                            )),
                       ),
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: const [
-                        Padding(
-                          padding: EdgeInsets.only(left: 20,bottom: 10),
+                      children: [
+                        const Padding(
+                          padding: EdgeInsets.only(left: 20),
                           child: Text(
                             'Top Headlines',
                             style: TextStyle(
                                 fontWeight: FontWeight.bold, fontSize: 18),
                           ),
                         ),
-                        // Row(
-                        //   children: [
-                        //     const Text(
-                        //       'Sort:',
-                        //       style: TextStyle(color: Colors.grey),
-                        //     ),
-                        //     const SizedBox(
-                        //       width: 5,
-                        //     ),
-                        //     Padding(
-                        //       padding: const EdgeInsets.only(right: 10),
-                        //       child: Obx(() => DropdownButton(
-                        //               underline: const SizedBox(),
-                        //               borderRadius: BorderRadius.circular(10),
-                        //               hint: const Text(
-                        //                 'Select',
-                        //               ),
-                        //               onChanged: (value) {
-                        //                 controller
-                        //                     .setSelected(value.toString());
-                        //                 if (value == controller.sortList[0]) {
-                        //                   controller.sort.value = 'newest';
-                        //                   controller.getNewsList();
-                        //                 } else if (value ==
-                        //                     controller.sortList[1]) {
-                        //                   controller.sort.value = 'popularity';
-                        //                   controller.getNewsList();
-                        //                 } else if (value ==
-                        //                     controller.sortList[2]) {
-                        //                   controller.sort.value = 'oldest';
-                        //                   controller.getNewsList();
-                        //                 }
-                        //                 controller.update();
-                        //               },
-                        //               value: controller.selectedDrowpdown.value,
-                        //               items: [
-                        //                 for (var data in controller.sortList)
-                        //                   DropdownMenuItem(
-                        //                     child: Text(
-                        //                       data,
-                        //                     ),
-                        //                     value: data,
-                        //                   )
-                        //               ])),
-                        //     )
-                        //   ],
-                        // ),
+                        Row(
+                          children: [
+                            const Text(
+                              'Sort:',
+                              style: TextStyle(color: Colors.grey),
+                            ),
+                            const SizedBox(
+                              width: 5,
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(right: 10),
+                              child: Obx(() => DropdownButton(
+                                      underline: const SizedBox(),
+                                      borderRadius: BorderRadius.circular(10),
+                                      hint: const Text(
+                                        'Select',
+                                      ),
+                                      onChanged: (value) {
+                                        controller
+                                            .setSelected(value.toString());
+                                        if (value == controller.sortList[0]) {
+                                          controller.sort.value = 'newest';
+                                          controller.getNewsList();
+                                        } else if (value ==
+                                            controller.sortList[2]) {
+                                          controller.sort.value = 'oldest';
+                                          controller.getNewsList();
+                                        }
+                                        controller.update();
+                                      },
+                                      value: controller.selectedDrowpdown.value,
+                                      items: [
+                                        for (var data in controller.sortList)
+                                          DropdownMenuItem(
+                                            child: Text(
+                                              data,
+                                            ),
+                                            value: data,
+                                          )
+                                      ])),
+                            )
+                          ],
+                        ),
                       ],
                     ),
                     Expanded(
@@ -224,23 +239,28 @@ class NewHomeView extends GetView<NewHomeController> {
                             // controller.connectionStatus.toString()=='none'?const Center(child:
                             //   Icon(Icons.signal_wifi_connected_no_internet_4),):
                             controller.newArticles.isEmpty
-                                ? Center(child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: const [
-                                Icon(
-                                  Icons.text_snippet_outlined,color: Colors.grey,
-                                  size: 200,
-                                ),
-                                Text(
-                                  'No result found!',
-                                  style: TextStyle(
-                                      fontSize: 20,
-                                      color: Colors.grey,
-                                      fontWeight: FontWeight.bold),
-                                )
-                              ],
-                            ),)
+                                ? Center(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: const [
+                                        Icon(
+                                          Icons.text_snippet_outlined,
+                                          color: Colors.grey,
+                                          size: 200,
+                                        ),
+                                        Text(
+                                          'No result found!',
+                                          style: TextStyle(
+                                              fontSize: 20,
+                                              color: Colors.grey,
+                                              fontWeight: FontWeight.bold),
+                                        )
+                                      ],
+                                    ),
+                                  )
                                 : ListView.builder(
                                     itemCount: controller.newArticles.length,
                                     padding: const EdgeInsets.all(10),
@@ -252,12 +272,9 @@ class NewHomeView extends GetView<NewHomeController> {
                                                   .newArticles[index]);
                                         },
                                         child: Container(
-                                          constraints:  const BoxConstraints(
-                                            minHeight: 130,
-                                            maxHeight: 150,
-                                          ),
-                                          margin: const EdgeInsets.only(
-                                               bottom: 16),
+                                          height: Get.height * .15,
+                                          margin:
+                                              const EdgeInsets.only(bottom: 16),
                                           decoration: BoxDecoration(
                                             color: Colors.white,
                                             boxShadow: [
@@ -281,8 +298,7 @@ class NewHomeView extends GetView<NewHomeController> {
                                                 Expanded(
                                                   child: Column(
                                                     mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .start,
+                                                        MainAxisAlignment.start,
                                                     crossAxisAlignment:
                                                         CrossAxisAlignment
                                                             .start,
@@ -312,11 +328,18 @@ class NewHomeView extends GetView<NewHomeController> {
                                                                       .toString(),
                                                               maxLines: 1,
                                                               style: const TextStyle(
-                                                                  fontSize:
-                                                                      16,
+                                                                  color: Colors
+                                                                      .black54,
+                                                                  fontSize: 16,
                                                                   fontWeight:
                                                                       FontWeight
-                                                                          .bold)),
+                                                                          .bold,
+                                                                  fontStyle:
+                                                                      FontStyle
+                                                                          .italic)),
+                                                          const SizedBox(
+                                                            height: 5,
+                                                          ),
                                                           Text(
                                                             controller
                                                                         .newArticles[
@@ -345,16 +368,16 @@ class NewHomeView extends GetView<NewHomeController> {
                                                           ? const Text(
                                                               'No Time')
                                                           : Text(
-                                                              controller.time_ago(DateTime.parse(controller
-                                                                  .newArticles[
-                                                                      index]
-                                                                  .publishedAt
-                                                                  .toString())),
+                                                              controller.time_ago(
+                                                                  DateTime.parse(controller
+                                                                      .newArticles[
+                                                                          index]
+                                                                      .publishedAt
+                                                                      .toString())),
                                                               style: const TextStyle(
                                                                   color: Colors
                                                                       .grey,
-                                                                  fontSize:
-                                                                      12),
+                                                                  fontSize: 12),
                                                             )
                                                     ],
                                                   ),
@@ -384,8 +407,10 @@ class NewHomeView extends GetView<NewHomeController> {
                                                               .urlToImage
                                                               .toString(),
                                                           fit: BoxFit.cover,
-                                                          height: Get.height*.20,
-                                                          width: Get.width*.40,
+                                                          height:
+                                                              Get.height * .20,
+                                                          width:
+                                                              Get.width * .35,
                                                           errorBuilder:
                                                               (_, __, ___) {
                                                             return const SizedBox(
@@ -401,8 +426,7 @@ class NewHomeView extends GetView<NewHomeController> {
                                                         ),
                                                         borderRadius:
                                                             BorderRadius
-                                                                .circular(
-                                                                    8.0),
+                                                                .circular(8.0),
                                                       )
                                               ],
                                             ),
@@ -420,25 +444,43 @@ class NewHomeView extends GetView<NewHomeController> {
 
   Widget bottomSheet() {
     return Padding(
-      padding: const EdgeInsets.all(20),
-      child: SingleChildScrollView(
-          child: Obx(
+      padding: const EdgeInsets.only(left: 20,right: 20,bottom: 20),
+      child: Obx(
         () => Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text(
-              'Choose your location',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const SizedBox(height: 6,),
+        Center(
+          child: Container(
+            height: 6,
+            width: Get.width*0.1,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              color: Colors.grey.shade400,
             ),
-            Divider(
-              height: 30,
-              color: Colors.grey[800],
-            ),
+          ),
+        ),
+        const SizedBox(height: 20,),
+        const Text(
+          'Choose your location',
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18,color: Colors.black54),
+        ),
+        Divider(
+          height: 30,
+          color: Colors.grey[800],
+        ),
+
+        SizedBox(
+          height: Get.height*0.35,
+          child: ListView(
+            children: [
             RadioListTile(
               title: const Text("India"),
               value: 'India',
+              controlAffinity: ListTileControlAffinity.trailing,
               groupValue: controller.initCountry.value,
+              activeColor: AppColors.primaryColor,
               onChanged: (value) {
                 controller.setCountry(value);
               },
@@ -446,7 +488,9 @@ class NewHomeView extends GetView<NewHomeController> {
             RadioListTile(
               title: const Text("USA"),
               value: 'USA',
+              controlAffinity: ListTileControlAffinity.trailing,
               groupValue: controller.initCountry.value,
+              activeColor: AppColors.primaryColor,
               onChanged: (value) {
                 controller.setCountry(value);
               },
@@ -454,7 +498,9 @@ class NewHomeView extends GetView<NewHomeController> {
             RadioListTile(
               title: const Text("Australia"),
               value: 'Australia',
+              controlAffinity: ListTileControlAffinity.trailing,
               groupValue: controller.initCountry.value,
+              activeColor: AppColors.primaryColor,
               onChanged: (value) {
                 controller.setCountry(value);
               },
@@ -462,7 +508,9 @@ class NewHomeView extends GetView<NewHomeController> {
             RadioListTile(
               title: const Text("Brazil"),
               value: 'Brazil',
+              controlAffinity: ListTileControlAffinity.trailing,
               groupValue: controller.initCountry.value,
+              activeColor: AppColors.primaryColor,
               onChanged: (value) {
                 controller.setCountry(value);
               },
@@ -470,6 +518,8 @@ class NewHomeView extends GetView<NewHomeController> {
             RadioListTile(
               title: const Text("England"),
               value: 'England',
+              activeColor: AppColors.primaryColor,
+              controlAffinity: ListTileControlAffinity.trailing,
               groupValue: controller.initCountry.value,
               onChanged: (value) {
                 controller.setCountry(value);
@@ -478,41 +528,58 @@ class NewHomeView extends GetView<NewHomeController> {
             RadioListTile(
               title: const Text("Sweden"),
               value: 'Sweden',
+              activeColor: AppColors.primaryColor,
+              controlAffinity: ListTileControlAffinity.trailing,
               groupValue: controller.initCountry.value,
               onChanged: (value) {
                 controller.setCountry(value);
               },
             ),
-            const SizedBox(
-              height: 20,
-            ),
-            Center(
-                child: PrimaryFilledButton(
-                    onTap: () async {
-                      // print(controller.getCountry());
-                      controller.displayCountryCode();
-                      // print("CountryCode Here ===>>> ${controller.countryCode}");
-                      controller.getNewsList();
-                      Get.back();
-                    },
-                    text: 'Apply'))
-          ],
+          ],),
         ),
-      )),
+        const Spacer(),
+        Center(
+            child: PrimaryFilledButton(
+                onTap: () async {
+                  // print(controller.getCountry());
+                  controller.displayCountryCode();
+                  // print("CountryCode Here ===>>> ${controller.countryCode}");
+                  controller.getNewsList();
+                  Get.back();
+                },
+                text: 'Apply'))
+      ],
+        ),
+      ),
     );
   }
 
   // Bottom Sheet for action button
   Widget bottomSheetFilter() {
     return Padding(
-      padding: const EdgeInsets.all(20),
+      padding: const EdgeInsets.only(left: 20, right: 20, bottom: 20),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
-            'Filter by Sources',
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+          const SizedBox(height: 5,),
+          Center(
+            child: Container(
+              height: 6,
+              width: Get.width*0.1,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                color: Colors.grey.shade400,
+              ),
+            ),
+          ),
+          const SizedBox(height: 10,),
+          const Padding(
+            padding: EdgeInsets.only(left: 10,top: 10),
+            child: Text(
+              'Filter by sources',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18,color: Colors.black54),
+            ),
           ),
           Divider(
             height: 30,
@@ -528,27 +595,28 @@ class NewHomeView extends GetView<NewHomeController> {
                           controller.ischeck[index] = value!;
                         },
                         title: Text(
-                            controller.sources.elementAt(index).toString())));
+                            controller.sources.elementAt(index).toString(),style: const TextStyle(fontSize: 18),)));
                   })),
           const SizedBox(
             height: 20,
           ),
           Center(
-              child: PrimaryFilledButton(
-                  onTap: () {
-                    controller.filterByNews();
-                    if (controller.sourceStringlength() > 0) {
-                      controller.getNewsList();
-                      controller.isFilter.value = true;
-                      Get.back();
-                    } else {
-                      Get.snackbar('Alert', 'Select any one option',
-                          snackPosition: SnackPosition.BOTTOM,
-                          backgroundColor: Colors.grey);
-                    }
-                  },
-                  text: 'Apply Filter',
-            ),)
+            child: PrimaryFilledButton(
+              onTap: () {
+                controller.filterByNews();
+                if (controller.sourceStringlength() > 0) {
+                  controller.getNewsList();
+                  controller.isFilter.value = true;
+                  Get.back();
+                } else {
+                  Get.snackbar('Alert', 'Select any one option',
+                      snackPosition: SnackPosition.BOTTOM,
+                      backgroundColor: Colors.grey);
+                }
+              },
+              text: 'Apply Filter',
+            ),
+          )
         ],
       ),
     );

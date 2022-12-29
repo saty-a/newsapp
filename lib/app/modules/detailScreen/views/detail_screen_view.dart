@@ -45,18 +45,18 @@ class DetailScreenView extends GetView<DetailScreenController> {
                       end: Alignment.bottomCenter,
                       colors: <Color>[
                         Colors.black12,
-                        Colors.black12,
+                        Colors.black26,
                         Colors.black
                       ],
                     ),
                   ),
                   child: Padding(
-                    padding: const EdgeInsets.only(left: 10, right: 10),
+                    padding: const EdgeInsets.only(left: 10, right: 10,bottom: 10),
                     child: Text(
                       (Get.arguments as Articles).title.toString(),
-                      maxLines: 3,
+                      maxLines: 2,
                       style:
-                      const TextStyle(color: Colors.white, fontSize: 16.0),
+                      const TextStyle(color: Colors.white, fontSize: 16.0,fontWeight: FontWeight.bold),
                     ),
                   ),
                 ),
@@ -72,13 +72,15 @@ class DetailScreenView extends GetView<DetailScreenController> {
                     Text(
                       (Get.arguments as Articles).source!.name.toString(),
                       style: const TextStyle(
-                          fontSize: 18, fontWeight: FontWeight.bold),
+                        color: Colors.black54,
+                          fontSize: 18, fontWeight: FontWeight.bold,fontStyle: FontStyle.italic),
                     ),
+                   const SizedBox(height: 5,),
 
                     (Get.arguments as Articles).publishedAt == null
                         ? Text(
                       DateFormat('d MMMM, y').format(DateTime.now()),
-                      style: const TextStyle(color: Colors.grey),
+                      style: const TextStyle(color: Colors.grey, fontSize: 10,fontWeight: FontWeight.bold),
                     )
                         : Text(
                       DateFormat('d MMM, y').format(DateTime.parse(
@@ -89,13 +91,14 @@ class DetailScreenView extends GetView<DetailScreenController> {
                               (Get.arguments as Articles)
                                   .publishedAt
                                   .toString())),
-                      style: const TextStyle(color: Colors.grey),),
+                      style: const TextStyle(color: Colors.grey, fontSize: 10,fontWeight: FontWeight.bold),),
+                    const SizedBox(height: 20,),
 
                     // Text((Get.arguments as Articles).content.toString(),maxLines: 10,)
                     (Get.arguments as Articles).content == null
                         ? const Text('Content is Empty')
-                        : Text((Get.arguments as Articles).content.toString()),
-                    const Spacer(),
+                        : Text((Get.arguments as Articles).content.toString(),style: const TextStyle(fontWeight: FontWeight.normal),),
+                    const SizedBox(height: 10,),
                     InkWell(
                       child: const Text('See full story >',
                           style: TextStyle(
@@ -109,9 +112,6 @@ class DetailScreenView extends GetView<DetailScreenController> {
                           throw 'Could not launch $url';
                         }
                       },
-                    ),
-                    const SizedBox(
-                      height: 20,
                     ),
                   ],
                 ),

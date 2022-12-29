@@ -49,9 +49,7 @@ class NewHomeController extends GetxController {
         sourcesIds.value += '${ids.elementAt(i)},';
       }
     }
-    for (int i = 0; i < ids.length; i++) {
-      ischeck[i] = false;
-    }
+
   }
 
   int sourceStringlength() {
@@ -86,7 +84,7 @@ class NewHomeController extends GetxController {
   RxList<Source> newsSource = <Source>[].obs;
 
   ///for Drop Down button Sort
-  var sortList = ['Newest', 'Popular', 'Oldest'];
+  var sortList = ['Newest', 'Oldest'];
   var selectedDrowpdown = 'Newest'.obs;
 
   void setCountry(var value) {

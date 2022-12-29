@@ -19,12 +19,13 @@ class SearchScreenController extends GetxController {
 
   void onSearchChanged(String value) {
     if (_debounce?.isActive ?? false) _debounce?.cancel();
-    _debounce = Timer(const Duration(milliseconds: 1000), () {
-      debugPrint('Value called >> $value');
+    _debounce = Timer(const Duration(milliseconds: 500), () {
+      debugPrint('Value called$value');
       q.value = value;
       newArticles.clear();
       firstLoad();
-      isFirstLoad.value=true;
+      isLoading.value=true;
+      //isFirstLoad.value=true;
     });
   }
 
@@ -64,7 +65,7 @@ class SearchScreenController extends GetxController {
           'display value ->> ${value.toString()} ${DateFormat('hh:mm:ss').format(DateTime.now())}');
       newArticles.clear();
       firstLoad();
-      isFirstLoad.value = true;
+
     });
   }
 
@@ -76,9 +77,19 @@ class SearchScreenController extends GetxController {
       final response =  await _appRepository.fetchNewsAPI(url.value);
       if (response?.error == null) {
         newArticles.value = response!.data!.articles!;
+
+        if(q.value.isEmpty==true){
+          isFirstLoad.value=false;
+        }else if(response.data?.totalResults==0){
+          isFirstLoad.value=true;
+        }
+
       }
     } finally {
-      isLoading(false);
+      if(q.value.isEmpty==true){
+        isFirstLoad.value=false;
+      }
+      isLoading.value=false;
       debugPrint('Something went wrong');
     }
 
@@ -109,7 +120,7 @@ class SearchScreenController extends GetxController {
           hasNextPage.value = false;
         }
       } finally {
-        isLoading(false);
+        isLoading.value=false;
         debugPrint('Something went wrong');
       }
       /// At the end, when loading done isLoadMoreRunning set to false.

@@ -19,6 +19,7 @@ class SearchScreenView extends GetView<SearchScreenController> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          leading: InkWell(child: const Icon(Icons.arrow_back_ios),onTap: (){Get.back();}),
           centerTitle: true,
           backgroundColor: AppColors.primaryColor,
           title: const Text('Search'),
@@ -30,6 +31,7 @@ class SearchScreenView extends GetView<SearchScreenController> {
               child: CupertinoSearchTextField(
                 suffixMode: OverlayVisibilityMode.always,
                 suffixIcon: const Icon(Icons.search),
+                onSuffixTap: (){},
                 suffixInsets: const EdgeInsets.only(right: 10),
                 autofocus: true,
                 autocorrect: false,
@@ -43,6 +45,9 @@ class SearchScreenView extends GetView<SearchScreenController> {
                   // controller.isFirstLoad.value=true;
                 },
                 onChanged: (value)  {
+                  if(controller.q.value.isEmpty){
+                    controller.isFirstLoad.value = false;
+                  }
                   controller.onSearchChanged(value);
 
                   // await Future.delayed(const Duration(seconds: 2), () {
@@ -67,7 +72,7 @@ class SearchScreenView extends GetView<SearchScreenController> {
                     ? const Center(
                         child: CircularProgressIndicator(),
                       )
-                    : controller.newArticles.isEmpty
+                    : controller.newArticles.isEmpty==true
                         ? Visibility(
                             visible: controller.isFirstLoad.value,
                             child: Center(
@@ -92,158 +97,170 @@ class SearchScreenView extends GetView<SearchScreenController> {
                             ),
                           )
                         : ListView.builder(
-                            controller: controller.Fcontroller,
-                            itemCount: controller.newArticles.length,
-                            itemBuilder: (context, index) {
-                              return InkWell(
-                                onTap: () {
-                                  Get.to(const DetailScreenView(),
-                                      arguments: controller.newArticles[index]);
-                                },
-                                child: Padding(
-                                  padding: const EdgeInsets.all(10),
-                                  child: Container(
-                                    height: Get.height*.18,
-                                    margin: const EdgeInsets.only(
-                                        left: 0, bottom: 10),
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Colors.black.withOpacity(0.15),
-                                          blurRadius: 4,
-                                          spreadRadius: .2,
-                                          offset: const Offset(4, 1),
-                                        ),
-                                      ],
-                                      borderRadius: const BorderRadius.all(
-                                        Radius.circular(4),
-                                      ),
-                                    ),
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(10),
-                                      child: Row(
-                                        children: [
-                                          Expanded(
-                                            child: Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.start,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Expanded(
-                                                    child: Column(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.start,
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    Text(
-                                                        controller
-                                                                    .newArticles[
-                                                                        index]
-                                                                    .source
-                                                                    ?.name ==
-                                                                null
-                                                            ? "No Source found"
-                                                            : controller
-                                                                .newArticles[
-                                                                    index]
-                                                                .source!
-                                                                .name
-                                                                .toString(),
-                                                        maxLines: 1,
-                                                        style: const TextStyle(
-                                                            fontSize: 18,
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .bold)),
-                                                    Text(
-                                                      controller
-                                                                  .newArticles[
-                                                                      index]
-                                                                  .content ==
-                                                              null
-                                                          ? "No Data Fetched"
-                                                          : controller
-                                                              .newArticles[
-                                                                  index]
-                                                              .content
-                                                              .toString(),
-                                                      overflow:
-                                                          TextOverflow.ellipsis,
-                                                      maxLines: 3,
-                                                    )
-                                                    //  ),
-                                                  ],
-                                                )),
-                                                controller.newArticles[index]
-                                                            .publishedAt ==
-                                                        null
-                                                    ? const Text('No Time')
-                                                    : Text(
-                                                        controller.time_ago(
-                                                            DateTime.parse(
-                                                                controller
-                                                                    .newArticles[
-                                                                        index]
-                                                                    .publishedAt
-                                                                    .toString())),
-                                                        style: const TextStyle(
-                                                            color: Colors.grey,
-                                                            fontSize: 12),
-                                                      )
-                                              ],
-                                            ),
-                                          ),
-                                          const SizedBox(
-                                            width: 10,
-                                          ),
-                                          controller.newArticles[index]
-                                                      .urlToImage ==
+                  controller: controller.Fcontroller,
+                  itemCount: controller.newArticles.length,
+                  padding: const EdgeInsets.all(10),
+                  itemBuilder: (context, index) {
+                    return InkWell(
+                      onTap: () {
+                        Get.to(const DetailScreenView(),
+                            arguments: controller
+                                .newArticles[index]);
+                      },
+                      child: Container(
+                        height: Get.height*.15,
+                        margin: const EdgeInsets.only(
+                            bottom: 16),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black
+                                  .withOpacity(0.15),
+                              blurRadius: 4,
+                              spreadRadius: .2,
+                              offset: const Offset(4, 1),
+                            ),
+                          ],
+                          borderRadius:
+                          const BorderRadius.all(
+                            Radius.circular(4),
+                          ),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(10),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: Column(
+                                  mainAxisAlignment:
+                                  MainAxisAlignment
+                                      .start,
+                                  crossAxisAlignment:
+                                  CrossAxisAlignment
+                                      .start,
+                                  children: [
+                                    Expanded(
+                                        child: Column(
+                                          mainAxisAlignment:
+                                          MainAxisAlignment
+                                              .start,
+                                          crossAxisAlignment:
+                                          CrossAxisAlignment
+                                              .start,
+                                          children: [
+                                            Text(
+                                                controller
+                                                    .newArticles[
+                                                index]
+                                                    .source
+                                                    ?.name ==
+                                                    null
+                                                    ? "No Source found"
+                                                    : controller
+                                                    .newArticles[
+                                                index]
+                                                    .source!
+                                                    .name
+                                                    .toString(),
+                                                maxLines: 1,
+                                                style: const TextStyle(color: Colors.black54,
+                                                    fontSize: 16, fontWeight: FontWeight.bold,fontStyle: FontStyle.italic)),
+                                            const SizedBox(height: 5,),
+                                            Text(
+                                              controller
+                                                  .newArticles[
+                                              index]
+                                                  .content ==
                                                   null
-                                              ? Container(
-                                                  color: Colors.grey.shade100,
-                                                  height: 150,
-                                                  width: 150,
-                                                  child: const Icon(
-                                                    Icons.image_not_supported,
-                                                    size: 100,
-                                                  ),
-                                                )
-                                              : ClipRRect(
-                                                  child: Image.network(
-                                                    controller
-                                                        .newArticles[index]
-                                                        .urlToImage
-                                                        .toString(),
-                                                    fit: BoxFit.cover,
-                                                    height: Get.height*.20,
-                                                    width: 150,
-                                                    errorBuilder: (_, __, ___) {
-                                                      return const SizedBox(
-                                                        height: 150,
-                                                        width: 150,
-                                                        child: Icon(
-                                                          Icons
-                                                              .image_not_supported,
-                                                          size: 100,
-                                                        ),
-                                                      );
-                                                    },
-                                                  ),
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          8.0),
-                                                )
-                                        ],
-                                      ),
-                                    ),
-                                  ),
+                                                  ? "No Data Fetched"
+                                                  : controller
+                                                  .newArticles[
+                                              index]
+                                                  .content
+                                                  .toString(),
+                                              overflow:
+                                              TextOverflow
+                                                  .ellipsis,
+                                              maxLines: 3,
+                                            )
+                                            //  ),
+                                          ],
+                                        )),
+                                    controller
+                                        .newArticles[
+                                    index]
+                                        .publishedAt ==
+                                        null
+                                        ? const Text(
+                                        'No Time')
+                                        : Text(
+                                      controller.time_ago(DateTime.parse(controller
+                                          .newArticles[
+                                      index]
+                                          .publishedAt
+                                          .toString())),
+                                      style: const TextStyle(
+                                          color: Colors
+                                              .grey,
+                                          fontSize:
+                                          12),
+                                    )
+                                  ],
                                 ),
-                              );
-                            },
-                          )),
+                              ),
+                              const SizedBox(
+                                width: 10,
+                              ),
+                              controller.newArticles[index]
+                                  .urlToImage ==
+                                  null
+                                  ? Container(
+                                color: Colors
+                                    .grey.shade100,
+                                height: Get.height*.20,
+                                width: Get.width*.35,
+                                child: const Icon(
+                                  Icons
+                                      .image_not_supported,
+                                  size: 100,
+                                ),
+                              )
+                                  : ClipRRect(
+                                child: Image.network(
+                                  controller
+                                      .newArticles[
+                                  index]
+                                      .urlToImage
+                                      .toString(),
+                                  fit: BoxFit.cover,
+                                  height: Get.height*.20,
+                                  width: Get.width*.35,
+                                  errorBuilder:
+                                      (_, __, ___) {
+                                    return const SizedBox(
+                                      height: 150,
+                                      width: 150,
+                                      child: Icon(
+                                        Icons
+                                            .image_not_supported,
+                                        size: 100,
+                                      ),
+                                    );
+                                  },
+                                ),
+                                borderRadius:
+                                BorderRadius
+                                    .circular(
+                                    8.0),
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                )),
               ),
             ),
           ],

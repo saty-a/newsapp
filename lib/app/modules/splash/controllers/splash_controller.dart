@@ -38,11 +38,13 @@ class SplashController extends GetxController {
   }
 
   _launchPage() async {
-    if (Storage.isUserExists()) {
-      Get.offAllNamed(Routes.HOME);
-    } else {
-      Get.offAllNamed(Routes.NEW_HOME);
-    }
+    Future.delayed(const Duration(seconds: 3),(){
+      if (Storage.isUserExists()) {
+        Get.offAllNamed(Routes.HOME);
+      } else {
+        Get.offAllNamed(Routes.NEW_HOME,);
+      }
+    });
   }
 }
 
