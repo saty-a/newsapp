@@ -64,6 +64,10 @@ class NewHomeController extends GetxController {
   // Time format
   // "publishedAt": "2022-12-20T07:08:00Z",
   String time_ago(DateTime dt) {
+    String aboutHourAgo=timeago.format(dt, allowFromNow: true, locale: 'en');
+    if(aboutHourAgo=='about an hour ago'){
+      return 'About an hour ago';
+    }
     return timeago.format(dt, allowFromNow: true, locale: 'en');
   }
 
@@ -135,6 +139,7 @@ class NewHomeController extends GetxController {
       debugPrint("No Data Found");
       isLoading(false);
     }
+
     debugPrint('Connectivity value :${isInternetConnected.value}');
   }
 

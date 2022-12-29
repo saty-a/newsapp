@@ -15,6 +15,7 @@ class DetailScreenView extends GetView<DetailScreenController> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          leading: InkWell(child: const Icon(Icons.arrow_back_ios),onTap: (){Get.back();}),
           centerTitle: true,
           backgroundColor: AppColors.primaryColor,
         ),
