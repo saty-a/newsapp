@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="default_web_client_id" translatable="false">236301841709-gqgi3aum1k0bgj1clff4i721tb0fdl6q.apps.googleusercontent.com</string>
-    <string name="gcm_defaultSenderId" translatable="false">236301841709</string>
-    <string name="google_api_key" translatable="false">AIzaSyBi6guy2mk04GFrp59GmfMMDqNrIlbqnLY</string>
-    <string name="google_app_id" translatable="false">1:236301841709:android:7bebf31f410d5324ce8fa4</string>
-    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyBi6guy2mk04GFrp59GmfMMDqNrIlbqnLY</string>
-    <string name="google_storage_bucket" translatable="false">flutter-starter-d2672.appspot.com</string>
-    <string name="project_id" translatable="false">flutter-starter-d2672</string>
+    <string name="default_web_client_id" translatable="false">961781670013-dcssm4adh9siu57f2qp73ikp6fr09lb1.apps.googleusercontent.com</string>
+    <string name="gcm_defaultSenderId" translatable="false">961781670013</string>
+    <string name="google_api_key" translatable="false">AIzaSyA9GYz1UeoERgN1IztfA2zhEEV2XRRw5UA</string>
+    <string name="google_app_id" translatable="false">1:961781670013:android:0bdd790acbd62de76ed114</string>
+    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyA9GYz1UeoERgN1IztfA2zhEEV2XRRw5UA</string>
+    <string name="google_storage_bucket" translatable="false">news-app-b2d0f.appspot.com</string>
+    <string name="project_id" translatable="false">news-app-b2d0f</string>
 </resources>

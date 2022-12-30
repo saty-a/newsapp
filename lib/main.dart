@@ -17,13 +17,14 @@ import 'firebase_options.dart';
 Future<void> main() async {
   runZonedGuarded<Future<void>>(() async {
     WidgetsFlutterBinding.ensureInitialized();
-    await initFirebase();
+    /*await initFirebase();*/
     await initGetStorage();
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
     runApp(const App());
   }, (error, stack) => FirebaseCrashlytics.instance.recordError(error, stack));
 }
 
+/*
 Future<void> initCrashlytics() async {
   if (kDebugMode) {
     await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(false);
@@ -36,13 +37,16 @@ Future<void> initCrashlytics() async {
     }).sendPort);
   }
 }
+*/
 
+/*
 Future<void> initFirebase() async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   FirebaseAnalytics.instance.logEvent(name: 'starter');
 
   await initCrashlytics();
 }
+*/
 
 Future<void> initGetStorage() async {
   await GetStorage.init();

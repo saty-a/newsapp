@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "com.example.starter.app-mergeDebugResources-13:/values-v21/values-v21.xml",
+            "outputFile": "com.example.starter.app-mergeDebugResources-12:/values-v21/values-v21.xml",
             "map": [
                 {
-                    "source": "/Users/squareboat/.gradle/caches/transforms-3/db1002bb55ba950d54d6772f6b44f73c/transformed/core-1.6.0/res/values-v21/values-v21.xml",
+                    "source": "/Users/squareboat/.gradle/caches/transforms-3/09613cbedccb5f33ae9163b1fa6b5134/transformed/core-1.6.0/res/values-v21/values-v21.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10,13",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4",

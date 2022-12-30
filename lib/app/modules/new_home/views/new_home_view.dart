@@ -19,7 +19,8 @@ import '../controllers/new_home_controller.dart';
 import 'package:badges/badges.dart';
 
 class NewHomeView extends GetView<NewHomeController> {
-  const NewHomeView({Key? key}) : super(key: key);
+   NewHomeView({Key? key}) : super(key: key);
+ //InternetConnectionChecker internetConnectionChecker = Get.put(InternetConnectionChecker());
 
   @override
   Widget build(BuildContext context) {
@@ -53,13 +54,11 @@ class NewHomeView extends GetView<NewHomeController> {
                     borderRadius: BorderRadius.circular(5.0),
                   ),
                   builder: (context) {
-                    return Container(
-                      child: bottomSheet(),
-                    );
+                    return bottomSheet();
                   });
             },
             child: Padding(
-              padding: const EdgeInsets.only(right: 20, top: 5),
+              padding: const EdgeInsets.only(right: 20, top: 10),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -67,14 +66,14 @@ class NewHomeView extends GetView<NewHomeController> {
                     padding: EdgeInsets.only(bottom: 4),
                     child: Text(
                       'LOCATION',
-                      style: TextStyle(fontSize: 12),
+                      style: TextStyle(fontSize: 10),
                     ),
                   ),
                   Row(
                     children: [
                       const Icon(
                         Icons.location_on,
-                        size: 15,
+                        size: 14,
                       ),
                       Obx(() => Text(
                             controller.c.value,
@@ -90,6 +89,7 @@ class NewHomeView extends GetView<NewHomeController> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
+          debugPrint(controller.articles.toString());
           controller.sourceList();
           showModalBottomSheet(
               context: context,
@@ -118,7 +118,7 @@ class NewHomeView extends GetView<NewHomeController> {
                 ),
         ),
       ),
-      body: Obx(() => !(controller.isInternetConnected.value)
+      body: Obx(() => controller.connectionStatus == 0
           ? Center(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -140,7 +140,7 @@ class NewHomeView extends GetView<NewHomeController> {
                       padding: const EdgeInsets.all(20),
                       child: PrimaryFilledButton(
                         onTap: () {
-                          controller.getNewsList();
+                          controller.firstLoad();
                         },
                         text: 'Try Again',
                       ))
@@ -242,34 +242,18 @@ class NewHomeView extends GetView<NewHomeController> {
                         child: Obx(() =>
                             // controller.connectionStatus.toString()=='none'?const Center(child:
                             //   Icon(Icons.signal_wifi_connected_no_internet_4),):
-                            controller.newArticles.isEmpty
-                                ? Center(
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: const [
-                                        Icon(
-                                          Icons.text_snippet_outlined,
-                                          color: Colors.grey,
-                                          size: 200,
-                                        ),
-                                        Text(
-                                          'No result found!',
-                                          style: TextStyle(
-                                              fontSize: 20,
-                                              color: Colors.grey,
-                                              fontWeight: FontWeight.bold),
-                                        )
-                                      ],
-                                    ),
-                                  )
-                                : RefreshIndicator(
+                             RefreshIndicator(
                                     onRefresh: () {
-                                      return controller.getNewsList();
+                                     controller.page.value = 1;
+                                     controller.resetChecks();
+                                     if(controller.isFilter.value==true){
+                                       controller.isFilter.value=false;
+                                     }
+
+                                      return controller.firstLoad();
                                     },
                                     child: ListView.builder(
+                                      controller: controller.Fcontroller,
                                       itemCount: controller.newArticles.length,
                                       padding: const EdgeInsets.all(10),
                                       itemBuilder: (context, index) {
@@ -280,7 +264,7 @@ class NewHomeView extends GetView<NewHomeController> {
                                                     .newArticles[index]);
                                           },
                                           child: Container(
-                                            height: Get.height * .15,
+                                            height: Get.height * .18,
                                             margin: const EdgeInsets.only(
                                                 bottom: 16),
                                             decoration: BoxDecoration(
@@ -350,22 +334,24 @@ class NewHomeView extends GetView<NewHomeController> {
                                                             const SizedBox(
                                                               height: 5,
                                                             ),
-                                                            Text(
-                                                              controller
-                                                                          .newArticles[
-                                                                              index]
-                                                                          .content ==
-                                                                      null
-                                                                  ? "No Data Fetched"
-                                                                  : controller
-                                                                      .newArticles[
-                                                                          index]
-                                                                      .content
-                                                                      .toString(),
-                                                              overflow:
-                                                                  TextOverflow
-                                                                      .ellipsis,
-                                                              maxLines: 3,
+                                                            Expanded(
+                                                              child: Text(
+                                                                controller
+                                                                            .newArticles[
+                                                                                index]
+                                                                            .content ==
+                                                                        null
+                                                                    ? "No Data Fetched"
+                                                                    : controller
+                                                                        .newArticles[
+                                                                            index]
+                                                                        .description
+                                                                        .toString(),
+                                                                overflow:
+                                                                    TextOverflow
+                                                                        .ellipsis,
+                                                                maxLines: 3,
+                                                              ),
                                                             )
                                                             //  ),
                                                           ],
@@ -466,7 +452,7 @@ class NewHomeView extends GetView<NewHomeController> {
 
   Widget bottomSheet() {
     return Padding(
-      padding: const EdgeInsets.only(left: 20, right: 20, bottom: 20),
+      padding: const EdgeInsets.only(left: 20, right: 20,bottom: 10),
       child: Obx(
         () => Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -500,7 +486,7 @@ class NewHomeView extends GetView<NewHomeController> {
               color: Colors.grey[800],
             ),
             SizedBox(
-              height: Get.height * 0.35,
+              height: Get.height * .37,
               child: ListView(
                 children: [
                   RadioListTile(
@@ -567,17 +553,21 @@ class NewHomeView extends GetView<NewHomeController> {
               ),
             ),
             const Spacer(),
-            Center(
-                child: PrimaryFilledButton(
-                    onTap: () async {
-                      // print(controller.getCountry());
-                      controller.c.value = controller.initCountry.value;
-                      controller.displayCountryCode();
-                      // print("CountryCode Here ===>>> ${controller.countryCode}");
-                      controller.getNewsList();
-                      Get.back();
-                    },
-                    text: 'Apply'))
+            Padding(
+              padding: const EdgeInsets.only( bottom: 10),
+              child: Center(
+                  child: PrimaryFilledButton(
+                      onTap: () async {
+                        // print(controller.getCountry());
+                        controller.page.value=1;
+                        controller.c.value = controller.initCountry.value;
+                        controller.displayCountryCode();
+                        // print("CountryCode Here ===>>> ${controller.countryCode}");
+                        controller.firstLoad();
+                        Get.back();
+                      },
+                      text: 'Apply')),
+            )
           ],
         ),
       ),
@@ -642,10 +632,11 @@ class NewHomeView extends GetView<NewHomeController> {
           Center(
             child: PrimaryFilledButton(
               onTap: () {
+                controller.page.value = 1;
                 controller.filterByNews();
                 if (controller.sourceStringlength() > 0) {
                   controller.isFilter.value = true;
-                  controller.getNewsList();
+                  controller.firstLoad();
                   Get.back();
                 } else {
                   Get.snackbar('Alert', 'Select any one option',

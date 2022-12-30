@@ -65,7 +65,6 @@ class SearchScreenController extends GetxController {
           'display value ->> ${value.toString()} ${DateFormat('hh:mm:ss').format(DateTime.now())}');
       newArticles.clear();
       firstLoad();
-
     });
   }
 
@@ -129,8 +128,6 @@ class SearchScreenController extends GetxController {
       debugPrint('articles length >>>${newArticles.value.length.toString()}');
     }
   }
-
-
 
   @override
   void onInit() {

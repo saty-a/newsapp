@@ -18,6 +18,10 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 class NewHomeController extends GetxController {
   //TODO: Implement NewHomeController
 
+  var page=1.obs;
+  final pageSize=20;
+  var isArticleEmpty=false.obs;
+
   var isLoading = true.obs;
   var isFilter = false.obs;
   RxBool isInternetConnected = true.obs;
@@ -26,12 +30,12 @@ class NewHomeController extends GetxController {
   RxList ischeck = [].obs;
   RxString sourcesIds = ''.obs;
 
-  List<dynamic>? articles;
+  RxList<dynamic>? articles;
   Set<dynamic> sources = {};
   Set<dynamic> ids = {};
 
   void sourceList() {
-    articles = response?.data?.articles;
+    articles = newArticles;
     for (int i = 0; i < articles!.length; i++) {
       if (articles![i].source.id != null &&
           !(ids.contains(articles![i].source.id))) {
@@ -39,6 +43,12 @@ class NewHomeController extends GetxController {
         ids.add(articles![i].source.id.toString());
         ischeck.add(false);
       }
+    }
+  }
+
+  void resetChecks(){
+    for (int i = 0; i < articles!.length; i++) {
+        ischeck.insert(i,false);
     }
   }
 
@@ -74,14 +84,14 @@ class NewHomeController extends GetxController {
   var sort = 'newest'.obs;
 
   // for Location Info
-  var initCountry = 'USA'.obs;
+  var initCountry = 'India'.obs;
   var c = 'India'.obs;
 
   //filter by country news
   RxString countryCode = 'us'.obs;
 
   ///var url='${Env.baseNewsLink}$countryCode&category=business&apiKey=${Env.apikey}'.obs;
-  var url = '${Env.baseNewsLink}us&apiKey=${Env.apikey}'.obs;
+  var url = '${Env.baseNewsLink}country=in&apiKey=${Env.apikey}'.obs;
 
   final NewsAppRepository _appRepository = NewsAppRepository();
   RxList<Articles> newArticles = <Articles>[].obs;
@@ -92,14 +102,19 @@ class NewHomeController extends GetxController {
   var selectedDrowpdown = 'Newest'.obs;
 
   /// Function to change Url
+
+  String urlFunction(
+      {String? country, String? source, int page=1}) =>
+      'https://newsapi.org/v2/top-headlines?country=$country&sources=${source ?? ''}&page=${page}&pageSize=${pageSize}&apiKey=${Env.apikey}';
+
   void changeUrlFunction() {
-    url.value =
-        '${Env.baseNewsLink}country=${countryCode.value}&apiKey=${Env.apikey}';
+   // url.value = '${Env.baseNewsLink}country=${countryCode.value}&apiKey=${Env.apikey}';
+    url.value=urlFunction(country: countryCode.value ?? "",page: page.value);
   }
 
   void filterUrlFunction() {
-    url.value =
-        '${Env.baseNewsLink}sources=${sourcesIds.value}&apiKey=${Env.apikey}';
+   // url.value = '${Env.baseNewsLink}sources=${sourcesIds.value}&apiKey=${Env.apikey}';
+    url.value=urlFunction(source: sourcesIds.value ?? "",country: '',page: page.value);
     filterByNews();
   }
 
@@ -123,29 +138,104 @@ class NewHomeController extends GetxController {
     }
   }
 
-  Future<void> getNewsList() async {
+  RxBool isFirstLoadRunning = false.obs;
+  /// Initially hasNextPage initially set true.
+  RxBool hasNextPage = true.obs;
+  /// isLoadMoreRunning initially set to false.
+  RxBool isLoadMoreRunning = false.obs;
+  /// Initially _post lists will be empty.
+    late ScrollController Fcontroller;
+
+  Future<void> firstLoad() async {
+    // if(newArticles.isNotEmpty){
+    //   debugPrint('first load function called');
+    //   newArticles.clear();
+    // }
+
+    if (isFilter.value == false) {
+            changeUrlFunction();
+          } else {
+            filterUrlFunction();
+       }
+
+    isFirstLoadRunning.value = true;
     try {
+      final response =  await _appRepository.fetchNewsAPI(url.value);
+      if (response?.error == null) {
+        newArticles.value = response!.data!.articles!;
+      }
+    } finally {
+      isLoading.value=false;
+      debugPrint('Something went wrong');
+    }
+
+    isFirstLoadRunning.value = false;
+  }
+
+  Future<void> loadMore() async {
+
+    if (hasNextPage.value == true &&
+        isFirstLoadRunning.value == false &&
+        isLoadMoreRunning.value == false &&
+        Fcontroller.position.extentAfter < 300) {
+
+      isLoadMoreRunning.value = true; // Display a progress indicator at the bottom
+
+      page.value += 1;
+
       if (isFilter.value == false) {
         changeUrlFunction();
       } else {
         filterUrlFunction();
-        debugPrint(sourcesIds.value);
       }
-      debugPrint("Changed Url Here ===>>  $url");
-      response = await _appRepository.fetchNewsAPI(url.value);
-      if (response?.error == null) {
-        isInternetConnected.value = true;
-        newArticles.value = response!.data!.articles!;
-      } else if (response?.error != null) {
-        isInternetConnected.value = response!.error!.noInternet;
-      }
-    } finally {
-      debugPrint("No Data Found");
-      isLoading(false);
-    }
+      // Increase page by 1
 
-    debugPrint('Connectivity value :${isInternetConnected.value}');
+      /// Here, we are calling API.
+      try {
+        /// Here _page is always dynamic it will increase everytime when we are
+        /// calling _loadMore function.
+        final response =  await _appRepository.fetchNewsAPI(url.value);
+        /// If fetchedPosts is not empty then we will add data in posts.
+
+        if (response?.error == null) {
+          newArticles.addAll(response!.data!.articles!);
+        }else{
+          hasNextPage.value = false;
+        }
+      } finally {
+        isLoading.value=false;
+        debugPrint('Something went wrong');
+      }
+      /// At the end, when loading done isLoadMoreRunning set to false.
+      isLoadMoreRunning.value = false;
+
+      debugPrint('articles length >>>${newArticles.value.length.toString()}');
+    }
   }
+
+  // Future<void> getNewsList() async {
+  //   try {
+  //     if (isFilter.value == false) {
+  //       changeUrlFunction();
+  //     } else {
+  //       filterUrlFunction();
+  //       debugPrint(sourcesIds.value);
+  //     }
+  //     debugPrint("Changed Url Here ===>>  $url");
+  //     response = await _appRepository.fetchNewsAPI(url.value);
+  //     if (response?.error == null) {
+  //       isInternetConnected.value = true;
+  //       newArticles.value = response!.data!.articles!;
+  //     } else if (response?.error != null) {
+  //       isInternetConnected.value = response!.error!.noInternet;
+  //     }
+  //   } finally {
+  //     debugPrint("No Data Found");
+  //     isLoading(false);
+  //   }
+  //
+  //   debugPrint('Connectivity value :${isInternetConnected.value}');
+  // }
 
 /*  List_of_ISO_3166_country_codes
 *   india - in
@@ -193,7 +283,11 @@ class NewHomeController extends GetxController {
 
   @override
   void onInit() {
-    getNewsList();
+    firstLoad();
+    /// Controller will here detect scroll and call _loadMore when there is
+    /// scroll detected.
+    Fcontroller = ScrollController()..addListener(loadMore);
+    //getNewsList();
     _listner = InternetConnectionChecker()
         .onStatusChange
         .listen((InternetConnectionStatus status) {

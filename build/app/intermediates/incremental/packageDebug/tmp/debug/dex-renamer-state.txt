@@ -1,4 +1,4 @@
-#Thu Dec 29 19:47:17 IST 2022
+#Fri Dec 30 18:46:01 IST 2022
 base.1=/Users/squareboat/AndroidStudioProjects/flutter-starter/build/app/intermediates/dex/debug/mergeDexDebug/classes2.dex
 path.1=classes2.dex
 base.0=/Users/squareboat/AndroidStudioProjects/flutter-starter/build/app/intermediates/dex/debug/mergeDexDebug/classes.dex

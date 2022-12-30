@@ -142,7 +142,7 @@
 -keep class io.flutter.plugins.urllauncher.WebViewActivity { <init>(); }
 
 # End of content from /Users/squareboat/AndroidStudioProjects/flutter-starter/build/app/intermediates/aapt_proguard_file/release/aapt_rules.txt
-# The proguard configuration file for the following section is /Users/squareboat/.gradle/caches/transforms-3/20606a12c8ef8355b30a73239f0897a1/transformed/jetified-window-1.0.0-beta04/proguard.txt
+# The proguard configuration file for the following section is /Users/squareboat/.gradle/caches/transforms-3/20fc9da2433af34e1e80255d48a2d9c1/transformed/jetified-window-1.0.0-beta04/proguard.txt
 # Copyright (C) 2020 The Android Open Source Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -175,8 +175,8 @@
 -dontwarn androidx.window.sidecar.**
 
 
-# End of content from /Users/squareboat/.gradle/caches/transforms-3/20606a12c8ef8355b30a73239f0897a1/transformed/jetified-window-1.0.0-beta04/proguard.txt
-# The proguard configuration file for the following section is /Users/squareboat/.gradle/caches/transforms-3/97ed3983f7c3df6c5e85e06cb54750fb/transformed/rules/lib/META-INF/com.android.tools/r8-from-1.6.0/coroutines.pro
+# End of content from /Users/squareboat/.gradle/caches/transforms-3/20fc9da2433af34e1e80255d48a2d9c1/transformed/jetified-window-1.0.0-beta04/proguard.txt
+# The proguard configuration file for the following section is /Users/squareboat/.gradle/caches/transforms-3/633d0c04a0ff2ceac383183411348f9c/transformed/rules/lib/META-INF/com.android.tools/r8-from-1.6.0/coroutines.pro
 # Allow R8 to optimize away the FastServiceLoader.
 # Together with ServiceLoader optimization in R8
 # this results in direct instantiation when loading Dispatchers.Main
@@ -201,8 +201,8 @@
     boolean getDEBUG() return false;
     boolean getRECOVER_STACK_TRACES() return false;
 }
-# End of content from /Users/squareboat/.gradle/caches/transforms-3/97ed3983f7c3df6c5e85e06cb54750fb/transformed/rules/lib/META-INF/com.android.tools/r8-from-1.6.0/coroutines.pro
-# The proguard configuration file for the following section is /Users/squareboat/.gradle/caches/transforms-3/131ed05dea42430ffe4c54122493a511/transformed/rules/lib/META-INF/proguard/coroutines.pro
+# End of content from /Users/squareboat/.gradle/caches/transforms-3/633d0c04a0ff2ceac383183411348f9c/transformed/rules/lib/META-INF/com.android.tools/r8-from-1.6.0/coroutines.pro
+# The proguard configuration file for the following section is /Users/squareboat/.gradle/caches/transforms-3/b04d7c65e86cb24e5cfb9cd31c6084f8/transformed/rules/lib/META-INF/proguard/coroutines.pro
 # ServiceLoader support
 -keepnames class kotlinx.coroutines.internal.MainDispatcherFactory {}
 -keepnames class kotlinx.coroutines.CoroutineExceptionHandler {}
@@ -224,8 +224,16 @@
 -dontwarn java.lang.instrument.Instrumentation
 -dontwarn sun.misc.Signal
 
-# End of content from /Users/squareboat/.gradle/caches/transforms-3/131ed05dea42430ffe4c54122493a511/transformed/rules/lib/META-INF/proguard/coroutines.pro
-# The proguard configuration file for the following section is /Users/squareboat/.gradle/caches/transforms-3/f38b06c7b6ea7deec076f727be0c4f96/transformed/jetified-play-services-measurement-api-21.2.0/proguard.txt
+# End of content from /Users/squareboat/.gradle/caches/transforms-3/b04d7c65e86cb24e5cfb9cd31c6084f8/transformed/rules/lib/META-INF/proguard/coroutines.pro
+# The proguard configuration file for the following section is /Users/squareboat/.gradle/caches/transforms-3/db90a7c43198f43a9fc7a8e922e09a9a/transformed/jetified-transport-backend-cct-3.1.8/proguard.txt
+-dontwarn com.google.auto.value.AutoValue
+-dontwarn com.google.auto.value.AutoValue$Builder
+
+# End of content from /Users/squareboat/.gradle/caches/transforms-3/db90a7c43198f43a9fc7a8e922e09a9a/transformed/jetified-transport-backend-cct-3.1.8/proguard.txt
+# The proguard configuration file for the following section is /Users/squareboat/.gradle/caches/transforms-3/e214c9b3fd0f2f86e3c7ebd02a062a8a/transformed/jetified-firebase-encoders-json-18.0.0/proguard.txt
+
+# End of content from /Users/squareboat/.gradle/caches/transforms-3/e214c9b3fd0f2f86e3c7ebd02a062a8a/transformed/jetified-firebase-encoders-json-18.0.0/proguard.txt
+# The proguard configuration file for the following section is /Users/squareboat/.gradle/caches/transforms-3/839edc4c3faea21d308f2a43c4ace0ae/transformed/jetified-play-services-measurement-api-21.2.0/proguard.txt
 # Can be removed once we pull in a dependency on firebase-common that includes
 # https://github.com/firebase/firebase-android-sdk/pull/1472/commits/856f1ca1151cdd88679bbc778892f23dfa34fc06#diff-a2ed34b5a38b4c6c686b09e54865eb48
 -dontwarn com.google.auto.value.AutoValue
@@ -238,14 +246,18 @@
   <fields>;
 }
 
-# End of content from /Users/squareboat/.gradle/caches/transforms-3/f38b06c7b6ea7deec076f727be0c4f96/transformed/jetified-play-services-measurement-api-21.2.0/proguard.txt
-# The proguard configuration file for the following section is /Users/squareboat/.gradle/caches/transforms-3/58657122332b97441d7f2de358c5ef9a/transformed/jetified-firebase-common-20.2.0/proguard.txt
+# End of content from /Users/squareboat/.gradle/caches/transforms-3/839edc4c3faea21d308f2a43c4ace0ae/transformed/jetified-play-services-measurement-api-21.2.0/proguard.txt
+# The proguard configuration file for the following section is /Users/squareboat/.gradle/caches/transforms-3/98950903bad0ace28ef444c0e87a627c/transformed/jetified-firebase-common-20.2.0/proguard.txt
 -dontwarn com.google.firebase.platforminfo.KotlinDetector
 -dontwarn com.google.auto.value.AutoValue
 -dontwarn com.google.auto.value.AutoValue$Builder
 
-# End of content from /Users/squareboat/.gradle/caches/transforms-3/58657122332b97441d7f2de358c5ef9a/transformed/jetified-firebase-common-20.2.0/proguard.txt
-# The proguard configuration file for the following section is /Users/squareboat/.gradle/caches/transforms-3/ec65066cfc73ca5f2b7395027e9d5699/transformed/jetified-play-services-measurement-21.2.0/proguard.txt
+# End of content from /Users/squareboat/.gradle/caches/transforms-3/98950903bad0ace28ef444c0e87a627c/transformed/jetified-firebase-common-20.2.0/proguard.txt
+# The proguard configuration file for the following section is /Users/squareboat/.gradle/caches/transforms-3/a41f8607cf7407670d000cd85ac02a50/transformed/jetified-play-services-tasks-18.0.1/proguard.txt
+
+
+# End of content from /Users/squareboat/.gradle/caches/transforms-3/a41f8607cf7407670d000cd85ac02a50/transformed/jetified-play-services-tasks-18.0.1/proguard.txt
+# The proguard configuration file for the following section is /Users/squareboat/.gradle/caches/transforms-3/2591838ea7575d11372f22bc57290dcf/transformed/jetified-play-services-measurement-21.2.0/proguard.txt
 # We keep all fields for every generated proto file as the runtime uses
 # reflection over them that ProGuard cannot detect. Without this keep
 # rule, fields may be removed that would cause runtime failures.
@@ -253,8 +265,8 @@
   <fields>;
 }
 
-# End of content from /Users/squareboat/.gradle/caches/transforms-3/ec65066cfc73ca5f2b7395027e9d5699/transformed/jetified-play-services-measurement-21.2.0/proguard.txt
-# The proguard configuration file for the following section is /Users/squareboat/.gradle/caches/transforms-3/7ab84f7eb22d0b8c0234d62139fbc7ed/transformed/jetified-play-services-measurement-sdk-21.2.0/proguard.txt
+# End of content from /Users/squareboat/.gradle/caches/transforms-3/2591838ea7575d11372f22bc57290dcf/transformed/jetified-play-services-measurement-21.2.0/proguard.txt
+# The proguard configuration file for the following section is /Users/squareboat/.gradle/caches/transforms-3/cae5603b9d6671311dea67c9264841cb/transformed/jetified-play-services-measurement-sdk-21.2.0/proguard.txt
 # We keep all fields for every generated proto file as the runtime uses
 # reflection over them that ProGuard cannot detect. Without this keep
 # rule, fields may be removed that would cause runtime failures.
@@ -262,12 +274,8 @@
   <fields>;
 }
 
-# End of content from /Users/squareboat/.gradle/caches/transforms-3/7ab84f7eb22d0b8c0234d62139fbc7ed/transformed/jetified-play-services-measurement-sdk-21.2.0/proguard.txt
-# The proguard configuration file for the following section is /Users/squareboat/.gradle/caches/transforms-3/19237167451970c14e47546a72d29747/transformed/jetified-play-services-tasks-18.0.1/proguard.txt
-
-
-# End of content from /Users/squareboat/.gradle/caches/transforms-3/19237167451970c14e47546a72d29747/transformed/jetified-play-services-tasks-18.0.1/proguard.txt
-# The proguard configuration file for the following section is /Users/squareboat/.gradle/caches/transforms-3/f02b99a3f5a468d6e179e83f11f739f0/transformed/jetified-play-services-measurement-impl-21.2.0/proguard.txt
+# End of content from /Users/squareboat/.gradle/caches/transforms-3/cae5603b9d6671311dea67c9264841cb/transformed/jetified-play-services-measurement-sdk-21.2.0/proguard.txt
+# The proguard configuration file for the following section is /Users/squareboat/.gradle/caches/transforms-3/54abb8528ca82ff8dfd5c6f915b7f077/transformed/jetified-play-services-measurement-impl-21.2.0/proguard.txt
 # We keep all fields for every generated proto file as the runtime uses
 # reflection over them that ProGuard cannot detect. Without this keep
 # rule, fields may be removed that would cause runtime failures.
@@ -275,8 +283,8 @@
   <fields>;
 }
 
-# End of content from /Users/squareboat/.gradle/caches/transforms-3/f02b99a3f5a468d6e179e83f11f739f0/transformed/jetified-play-services-measurement-impl-21.2.0/proguard.txt
-# The proguard configuration file for the following section is /Users/squareboat/.gradle/caches/transforms-3/94b1f63a1ecfa1234eb359d4b9d5eedc/transformed/jetified-play-services-measurement-sdk-api-21.2.0/proguard.txt
+# End of content from /Users/squareboat/.gradle/caches/transforms-3/54abb8528ca82ff8dfd5c6f915b7f077/transformed/jetified-play-services-measurement-impl-21.2.0/proguard.txt
+# The proguard configuration file for the following section is /Users/squareboat/.gradle/caches/transforms-3/e314ef0ec3dabbfe64936004e7a43971/transformed/jetified-play-services-measurement-sdk-api-21.2.0/proguard.txt
 # We keep all fields for every generated proto file as the runtime uses
 # reflection over them that ProGuard cannot detect. Without this keep
 # rule, fields may be removed that would cause runtime failures.
@@ -284,8 +292,8 @@
   <fields>;
 }
 
-# End of content from /Users/squareboat/.gradle/caches/transforms-3/94b1f63a1ecfa1234eb359d4b9d5eedc/transformed/jetified-play-services-measurement-sdk-api-21.2.0/proguard.txt
-# The proguard configuration file for the following section is /Users/squareboat/.gradle/caches/transforms-3/c7a1100a8e6e43d22b5bc36e0a49e27e/transformed/jetified-play-services-measurement-base-21.2.0/proguard.txt
+# End of content from /Users/squareboat/.gradle/caches/transforms-3/e314ef0ec3dabbfe64936004e7a43971/transformed/jetified-play-services-measurement-sdk-api-21.2.0/proguard.txt
+# The proguard configuration file for the following section is /Users/squareboat/.gradle/caches/transforms-3/03329b2c2df994771dc1b18c3e4557f6/transformed/jetified-play-services-measurement-base-21.2.0/proguard.txt
 # We keep all fields for every generated proto file as the runtime uses
 # reflection over them that ProGuard cannot detect. Without this keep
 # rule, fields may be removed that would cause runtime failures.
@@ -293,8 +301,8 @@
   <fields>;
 }
 
-# End of content from /Users/squareboat/.gradle/caches/transforms-3/c7a1100a8e6e43d22b5bc36e0a49e27e/transformed/jetified-play-services-measurement-base-21.2.0/proguard.txt
-# The proguard configuration file for the following section is /Users/squareboat/.gradle/caches/transforms-3/2a896f2ef6894f021d93ffdf927b8739/transformed/jetified-play-services-basement-18.1.0/proguard.txt
+# End of content from /Users/squareboat/.gradle/caches/transforms-3/03329b2c2df994771dc1b18c3e4557f6/transformed/jetified-play-services-measurement-base-21.2.0/proguard.txt
+# The proguard configuration file for the following section is /Users/squareboat/.gradle/caches/transforms-3/6963bbb41385a0af6a6870a83e6b1721/transformed/jetified-play-services-basement-18.1.0/proguard.txt
 # Needed when building against pre-Marshmallow SDK.
 -dontwarn android.security.NetworkSecurityPolicy
 
@@ -367,8 +375,8 @@
 
 
 
-# End of content from /Users/squareboat/.gradle/caches/transforms-3/2a896f2ef6894f021d93ffdf927b8739/transformed/jetified-play-services-basement-18.1.0/proguard.txt
-# The proguard configuration file for the following section is /Users/squareboat/.gradle/caches/transforms-3/db1002bb55ba950d54d6772f6b44f73c/transformed/core-1.6.0/proguard.txt
+# End of content from /Users/squareboat/.gradle/caches/transforms-3/6963bbb41385a0af6a6870a83e6b1721/transformed/jetified-play-services-basement-18.1.0/proguard.txt
+# The proguard configuration file for the following section is /Users/squareboat/.gradle/caches/transforms-3/09613cbedccb5f33ae9163b1fa6b5134/transformed/core-1.6.0/proguard.txt
 # Never inline methods, but allow shrinking and obfuscation.
 -keepclassmembernames,allowobfuscation,allowshrinking class androidx.core.view.ViewCompat$Api* {
   <methods>;
@@ -383,8 +391,8 @@
   <methods>;
 }
 
-# End of content from /Users/squareboat/.gradle/caches/transforms-3/db1002bb55ba950d54d6772f6b44f73c/transformed/core-1.6.0/proguard.txt
-# The proguard configuration file for the following section is /Users/squareboat/.gradle/caches/transforms-3/81d9bde01255dd23e929a1464de96c7f/transformed/lifecycle-runtime-2.2.0/proguard.txt
+# End of content from /Users/squareboat/.gradle/caches/transforms-3/09613cbedccb5f33ae9163b1fa6b5134/transformed/core-1.6.0/proguard.txt
+# The proguard configuration file for the following section is /Users/squareboat/.gradle/caches/transforms-3/c1223178f8a8fbfcae31babe22701f1e/transformed/lifecycle-runtime-2.2.0/proguard.txt
 -keepattributes *Annotation*
 
 -keepclassmembers enum androidx.lifecycle.Lifecycle$Event {
@@ -404,8 +412,8 @@
 
 # this rule is need to work properly when app is compiled with api 28, see b/142778206
 -keepclassmembers class androidx.lifecycle.ReportFragment$LifecycleCallbacks { *; }
-# End of content from /Users/squareboat/.gradle/caches/transforms-3/81d9bde01255dd23e929a1464de96c7f/transformed/lifecycle-runtime-2.2.0/proguard.txt
-# The proguard configuration file for the following section is /Users/squareboat/.gradle/caches/transforms-3/7095174e8ab23a17fd70d6918e68b9d7/transformed/jetified-savedstate-1.0.0/proguard.txt
+# End of content from /Users/squareboat/.gradle/caches/transforms-3/c1223178f8a8fbfcae31babe22701f1e/transformed/lifecycle-runtime-2.2.0/proguard.txt
+# The proguard configuration file for the following section is /Users/squareboat/.gradle/caches/transforms-3/bf781bbb3ffa5b5d7c5d9fbbf23025fd/transformed/jetified-savedstate-1.0.0/proguard.txt
 # Copyright (C) 2019 The Android Open Source Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -424,36 +432,28 @@
     <init>();
 }
 
-# End of content from /Users/squareboat/.gradle/caches/transforms-3/7095174e8ab23a17fd70d6918e68b9d7/transformed/jetified-savedstate-1.0.0/proguard.txt
-# The proguard configuration file for the following section is /Users/squareboat/.gradle/caches/transforms-3/55d94ee69a513e8ddf7fa71e8573b060/transformed/jetified-transport-backend-cct-3.1.8/proguard.txt
--dontwarn com.google.auto.value.AutoValue
--dontwarn com.google.auto.value.AutoValue$Builder
-
-# End of content from /Users/squareboat/.gradle/caches/transforms-3/55d94ee69a513e8ddf7fa71e8573b060/transformed/jetified-transport-backend-cct-3.1.8/proguard.txt
-# The proguard configuration file for the following section is /Users/squareboat/.gradle/caches/transforms-3/4ac3cec871c372fe7752e3b2d0c36b4b/transformed/jetified-transport-api-3.0.0/proguard.txt
--dontwarn com.google.auto.value.AutoValue
--dontwarn com.google.auto.value.AutoValue$Builder
-
-# End of content from /Users/squareboat/.gradle/caches/transforms-3/4ac3cec871c372fe7752e3b2d0c36b4b/transformed/jetified-transport-api-3.0.0/proguard.txt
-# The proguard configuration file for the following section is /Users/squareboat/.gradle/caches/transforms-3/663f4de8f793c99b9e9bc383282d08d2/transformed/jetified-firebase-components-17.0.1/proguard.txt
+# End of content from /Users/squareboat/.gradle/caches/transforms-3/bf781bbb3ffa5b5d7c5d9fbbf23025fd/transformed/jetified-savedstate-1.0.0/proguard.txt
+# The proguard configuration file for the following section is /Users/squareboat/.gradle/caches/transforms-3/b30a4d8b55b0ac46a1975f876ef1575c/transformed/jetified-firebase-components-17.0.1/proguard.txt
 -dontwarn com.google.firebase.components.Component$Instantiation
 -dontwarn com.google.firebase.components.Component$ComponentType
 
 -keep class * implements com.google.firebase.components.ComponentRegistrar
 -keep,allowshrinking interface com.google.firebase.components.ComponentRegistrar
 
-# End of content from /Users/squareboat/.gradle/caches/transforms-3/663f4de8f793c99b9e9bc383282d08d2/transformed/jetified-firebase-components-17.0.1/proguard.txt
-# The proguard configuration file for the following section is /Users/squareboat/.gradle/caches/transforms-3/f7a8b27917bf8455aabb87c7c8c4191a/transformed/jetified-firebase-encoders-json-18.0.0/proguard.txt
+# End of content from /Users/squareboat/.gradle/caches/transforms-3/b30a4d8b55b0ac46a1975f876ef1575c/transformed/jetified-firebase-components-17.0.1/proguard.txt
+# The proguard configuration file for the following section is /Users/squareboat/.gradle/caches/transforms-3/3ede54f5e2dda0286aab75cb4477b930/transformed/jetified-transport-api-3.0.0/proguard.txt
+-dontwarn com.google.auto.value.AutoValue
+-dontwarn com.google.auto.value.AutoValue$Builder
 
-# End of content from /Users/squareboat/.gradle/caches/transforms-3/f7a8b27917bf8455aabb87c7c8c4191a/transformed/jetified-firebase-encoders-json-18.0.0/proguard.txt
-# The proguard configuration file for the following section is /Users/squareboat/.gradle/caches/transforms-3/7ab7bb770fe58b51ff60f608a7ba7534/transformed/versionedparcelable-1.1.1/proguard.txt
+# End of content from /Users/squareboat/.gradle/caches/transforms-3/3ede54f5e2dda0286aab75cb4477b930/transformed/jetified-transport-api-3.0.0/proguard.txt
+# The proguard configuration file for the following section is /Users/squareboat/.gradle/caches/transforms-3/c5ddd0ebe10f405f710a5adbea0a88ad/transformed/versionedparcelable-1.1.1/proguard.txt
 -keep class * implements androidx.versionedparcelable.VersionedParcelable
 -keep public class android.support.**Parcelizer { *; }
 -keep public class androidx.**Parcelizer { *; }
 -keep public class androidx.versionedparcelable.ParcelImpl
 
-# End of content from /Users/squareboat/.gradle/caches/transforms-3/7ab7bb770fe58b51ff60f608a7ba7534/transformed/versionedparcelable-1.1.1/proguard.txt
-# The proguard configuration file for the following section is /Users/squareboat/.gradle/caches/transforms-3/3d64da5fbe4d7a1d4af7de669800e6a5/transformed/lifecycle-viewmodel-2.1.0/proguard.txt
+# End of content from /Users/squareboat/.gradle/caches/transforms-3/c5ddd0ebe10f405f710a5adbea0a88ad/transformed/versionedparcelable-1.1.1/proguard.txt
+# The proguard configuration file for the following section is /Users/squareboat/.gradle/caches/transforms-3/a06cdd796ae28761cf3ddc7959fcf0ed/transformed/lifecycle-viewmodel-2.1.0/proguard.txt
 -keepclassmembers,allowobfuscation class * extends androidx.lifecycle.ViewModel {
     <init>();
 }
@@ -462,8 +462,8 @@
     <init>(android.app.Application);
 }
 
-# End of content from /Users/squareboat/.gradle/caches/transforms-3/3d64da5fbe4d7a1d4af7de669800e6a5/transformed/lifecycle-viewmodel-2.1.0/proguard.txt
-# The proguard configuration file for the following section is /Users/squareboat/.gradle/caches/transforms-3/aa6c152f6246f21159de950df6a2d829/transformed/rules/lib/META-INF/proguard/androidx-annotations.pro
+# End of content from /Users/squareboat/.gradle/caches/transforms-3/a06cdd796ae28761cf3ddc7959fcf0ed/transformed/lifecycle-viewmodel-2.1.0/proguard.txt
+# The proguard configuration file for the following section is /Users/squareboat/.gradle/caches/transforms-3/5509efaa18512d463212fc3960fc0594/transformed/rules/lib/META-INF/proguard/androidx-annotations.pro
 -keep,allowobfuscation @interface androidx.annotation.Keep
 -keep @androidx.annotation.Keep class * {*;}
 
@@ -483,8 +483,8 @@
   @androidx.annotation.DoNotInline <methods>;
 }
 
-# End of content from /Users/squareboat/.gradle/caches/transforms-3/aa6c152f6246f21159de950df6a2d829/transformed/rules/lib/META-INF/proguard/androidx-annotations.pro
-# The proguard configuration file for the following section is /Users/squareboat/.gradle/caches/transforms-3/c8783cfe7669bc72a2e60d2bc0425c45/transformed/jetified-annotation-experimental-1.1.0/proguard.txt
+# End of content from /Users/squareboat/.gradle/caches/transforms-3/5509efaa18512d463212fc3960fc0594/transformed/rules/lib/META-INF/proguard/androidx-annotations.pro
+# The proguard configuration file for the following section is /Users/squareboat/.gradle/caches/transforms-3/ddcd65d4a3bda2630797bd9d02ecf7ec/transformed/jetified-annotation-experimental-1.1.0/proguard.txt
 # Copyright (C) 2020 The Android Open Source Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -509,7 +509,7 @@
 -dontwarn kotlin.annotation.Retention
 -dontwarn kotlin.annotation.Target
 
-# End of content from /Users/squareboat/.gradle/caches/transforms-3/c8783cfe7669bc72a2e60d2bc0425c45/transformed/jetified-annotation-experimental-1.1.0/proguard.txt
+# End of content from /Users/squareboat/.gradle/caches/transforms-3/ddcd65d4a3bda2630797bd9d02ecf7ec/transformed/jetified-annotation-experimental-1.1.0/proguard.txt
 # The proguard configuration file for the following section is <unknown>
 -ignorewarnings
 # End of content from <unknown>

@@ -4,24 +4,7 @@
             "outputFile": "io.flutter.plugins.firebase.crashlytics.firebase_crashlytics-mergeReleaseResources-9:/values-gu/values-gu.xml",
             "map": [
                 {
-                    "source": "/Users/squareboat/.gradle/caches/transforms-3/2a896f2ef6894f021d93ffdf927b8739/transformed/jetified-play-services-basement-18.1.0/res/values-gu/values.xml",
-                    "from": {
-                        "startLines": "4",
-                        "startColumns": "0",
-                        "startOffsets": "195",
-                        "endColumns": "142",
-                        "endOffsets": "337"
-                    },
-                    "to": {
-                        "startLines": "2",
-                        "startColumns": "4",
-                        "startOffsets": "55",
-                        "endColumns": "146",
-                        "endOffsets": "197"
-                    }
-                },
-                {
-                    "source": "/Users/squareboat/.gradle/caches/transforms-3/db1002bb55ba950d54d6772f6b44f73c/transformed/core-1.6.0/res/values-gu/values-gu.xml",
+                    "source": "/Users/squareboat/.gradle/caches/transforms-3/09613cbedccb5f33ae9163b1fa6b5134/transformed/core-1.6.0/res/values-gu/values-gu.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
@@ -35,6 +18,23 @@
                         "startOffsets": "202",
                         "endColumns": "100",
                         "endOffsets": "298"
+                    }
+                },
+                {
+                    "source": "/Users/squareboat/.gradle/caches/transforms-3/6963bbb41385a0af6a6870a83e6b1721/transformed/jetified-play-services-basement-18.1.0/res/values-gu/values.xml",
+                    "from": {
+                        "startLines": "4",
+                        "startColumns": "0",
+                        "startOffsets": "195",
+                        "endColumns": "142",
+                        "endOffsets": "337"
+                    },
+                    "to": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "146",
+                        "endOffsets": "197"
                     }
                 }
             ]
@@ -43,24 +43,7 @@
             "outputFile": "io.flutter.plugins.firebase.crashlytics.firebase_crashlytics-merged_res-11:/values-gu/values-gu.xml",
             "map": [
                 {
-                    "source": "/Users/squareboat/.gradle/caches/transforms-3/2a896f2ef6894f021d93ffdf927b8739/transformed/jetified-play-services-basement-18.1.0/res/values-gu/values.xml",
-                    "from": {
-                        "startLines": "4",
-                        "startColumns": "0",
-                        "startOffsets": "195",
-                        "endColumns": "142",
-                        "endOffsets": "337"
-                    },
-                    "to": {
-                        "startLines": "2",
-                        "startColumns": "4",
-                        "startOffsets": "55",
-                        "endColumns": "146",
-                        "endOffsets": "197"
-                    }
-                },
-                {
-                    "source": "/Users/squareboat/.gradle/caches/transforms-3/db1002bb55ba950d54d6772f6b44f73c/transformed/core-1.6.0/res/values-gu/values-gu.xml",
+                    "source": "/Users/squareboat/.gradle/caches/transforms-3/09613cbedccb5f33ae9163b1fa6b5134/transformed/core-1.6.0/res/values-gu/values-gu.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
@@ -74,6 +57,23 @@
                         "startOffsets": "202",
                         "endColumns": "100",
                         "endOffsets": "298"
+                    }
+                },
+                {
+                    "source": "/Users/squareboat/.gradle/caches/transforms-3/6963bbb41385a0af6a6870a83e6b1721/transformed/jetified-play-services-basement-18.1.0/res/values-gu/values.xml",
+                    "from": {
+                        "startLines": "4",
+                        "startColumns": "0",
+                        "startOffsets": "195",
+                        "endColumns": "142",
+                        "endOffsets": "337"
+                    },
+                    "to": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "146",
+                        "endOffsets": "197"
                     }
                 }
             ]
