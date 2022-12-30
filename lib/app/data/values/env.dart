@@ -7,7 +7,7 @@ class Env {
   static const newsUrl="https://newsapi.org/v2/top-headlines?country=us}&category=business&apiKey=c230ea95361e4af4af72e85d55e0e79b";
   static const baseNewsLink="https://newsapi.org/v2/top-headlines?";
   static const baseSearchLink="https://newsapi.org/v2/everything?q=";
-  static const apikey='b5170d10ac334ed89de29a807c0fc94c';
+  static const apikey='adb8e872f1a94a01959ba1c9d35a3da0';
 
 
   // static const apiKey = "ed93e11eb1114a6e8c8c34322f8d836b";
@@ -18,4 +18,5 @@ class Env {
 //  static const apiKey = "33f6c363d2fa4ef29b7185a5945cd5cc";
 //   static const apikey='c230ea95361e4af4af72e85d55e0e79b';
 //   static const apikey='6fb44c9291e04d2aa41da424c8cf5653';
+ // static const apikey='6fb44c9291e04d2aa41da424c8cf5653';
 }

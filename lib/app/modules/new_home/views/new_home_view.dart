@@ -19,8 +19,9 @@ import '../controllers/new_home_controller.dart';
 import 'package:badges/badges.dart';
 
 class NewHomeView extends GetView<NewHomeController> {
-   NewHomeView({Key? key}) : super(key: key);
- //InternetConnectionChecker internetConnectionChecker = Get.put(InternetConnectionChecker());
+  NewHomeView({Key? key}) : super(key: key);
+
+  //InternetConnectionChecker internetConnectionChecker = Get.put(InternetConnectionChecker());
 
   @override
   Widget build(BuildContext context) {
@@ -212,6 +213,11 @@ class NewHomeView extends GetView<NewHomeController> {
                                         'Select',
                                       ),
                                       onChanged: (value) {
+                                        controller.shouldBeNewest.value =
+                                            value.toString().toLowerCase() ==
+                                                    'Newest'.toLowerCase()
+                                                ? true
+                                                : false;
                                         controller
                                             .setSelected(value.toString());
                                         controller.update();
@@ -242,149 +248,155 @@ class NewHomeView extends GetView<NewHomeController> {
                         child: Obx(() =>
                             // controller.connectionStatus.toString()=='none'?const Center(child:
                             //   Icon(Icons.signal_wifi_connected_no_internet_4),):
-                             RefreshIndicator(
-                                    onRefresh: () {
-                                     controller.page.value = 1;
-                                     controller.resetChecks();
-                                     if(controller.isFilter.value==true){
-                                       controller.isFilter.value=false;
-                                     }
-
-                                      return controller.firstLoad();
+                            RefreshIndicator(
+                              onRefresh: () {
+                                controller.page.value = 1;
+                                return controller.firstLoad();
+                              },
+                              child: ListView.builder(
+                                controller: controller.Fcontroller,
+                                itemCount: controller.newArticles.length,
+                                padding: const EdgeInsets.all(10),
+                                itemBuilder: (context, index) {
+                                  return InkWell(
+                                    onTap: () {
+                                      Get.to(const DetailScreenView(),
+                                          arguments:
+                                              controller.newArticles[index]);
                                     },
-                                    child: ListView.builder(
-                                      controller: controller.Fcontroller,
-                                      itemCount: controller.newArticles.length,
-                                      padding: const EdgeInsets.all(10),
-                                      itemBuilder: (context, index) {
-                                        return InkWell(
-                                          onTap: () {
-                                            Get.to(const DetailScreenView(),
-                                                arguments: controller
-                                                    .newArticles[index]);
-                                          },
-                                          child: Container(
-                                            height: Get.height * .18,
-                                            margin: const EdgeInsets.only(
-                                                bottom: 16),
-                                            decoration: BoxDecoration(
-                                              color: Colors.white,
-                                              boxShadow: [
-                                                BoxShadow(
-                                                  color: Colors.black
-                                                      .withOpacity(0.15),
-                                                  blurRadius: 4,
-                                                  spreadRadius: .2,
-                                                  offset: const Offset(4, 1),
-                                                ),
-                                              ],
-                                              borderRadius:
-                                                  const BorderRadius.all(
-                                                Radius.circular(4),
-                                              ),
-                                            ),
-                                            child: Padding(
-                                              padding: const EdgeInsets.all(10),
-                                              child: Row(
+                                    child: Container(
+                                      height: Get.height * .18,
+                                      margin: const EdgeInsets.only(bottom: 16),
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color:
+                                                Colors.black.withOpacity(0.15),
+                                            blurRadius: 4,
+                                            spreadRadius: .2,
+                                            offset: const Offset(4, 1),
+                                          ),
+                                        ],
+                                        borderRadius: const BorderRadius.all(
+                                          Radius.circular(4),
+                                        ),
+                                      ),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(10),
+                                        child: Row(
+                                          children: [
+                                            Expanded(
+                                              child: Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.start,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
                                                 children: [
                                                   Expanded(
-                                                    child: Column(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .start,
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
-                                                      children: [
-                                                        Expanded(
-                                                            child: Column(
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .start,
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .start,
-                                                          children: [
-                                                            Text(
-                                                                controller
-                                                                            .newArticles[
-                                                                                index]
-                                                                            .source
-                                                                            ?.name ==
-                                                                        null
-                                                                    ? "No Source found"
-                                                                    : controller
-                                                                        .newArticles[
-                                                                            index]
-                                                                        .source!
-                                                                        .name
-                                                                        .toString(),
-                                                                maxLines: 1,
-                                                                style: const TextStyle(
-                                                                    color: Colors
-                                                                        .black54,
-                                                                    fontSize:
-                                                                        16,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .bold,
-                                                                    fontStyle:
-                                                                        FontStyle
-                                                                            .italic)),
-                                                            const SizedBox(
-                                                              height: 5,
-                                                            ),
-                                                            Expanded(
-                                                              child: Text(
-                                                                controller
-                                                                            .newArticles[
-                                                                                index]
-                                                                            .content ==
-                                                                        null
-                                                                    ? "No Data Fetched"
-                                                                    : controller
-                                                                        .newArticles[
-                                                                            index]
-                                                                        .description
-                                                                        .toString(),
-                                                                overflow:
-                                                                    TextOverflow
-                                                                        .ellipsis,
-                                                                maxLines: 3,
-                                                              ),
-                                                            )
-                                                            //  ),
-                                                          ],
-                                                        )),
-                                                        controller
-                                                                    .newArticles[
-                                                                        index]
-                                                                    .publishedAt ==
-                                                                null
-                                                            ? const Text(
-                                                                'No Time')
-                                                            : Text(
-                                                                controller.time_ago(DateTime.parse(controller
-                                                                    .newArticles[
-                                                                        index]
-                                                                    .publishedAt
-                                                                    .toString())),
-                                                                style: const TextStyle(
-                                                                    color: Colors
-                                                                        .grey,
-                                                                    fontSize:
-                                                                        12),
-                                                              )
-                                                      ],
-                                                    ),
-                                                  ),
-                                                  const SizedBox(
-                                                    width: 10,
-                                                  ),
+                                                      child: Column(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment.start,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      Text(
+                                                          controller
+                                                                      .newArticles[
+                                                                          index]
+                                                                      .source
+                                                                      ?.name ==
+                                                                  null
+                                                              ? "No Source found"
+                                                              : controller
+                                                                  .newArticles[
+                                                                      index]
+                                                                  .source!
+                                                                  .name
+                                                                  .toString(),
+                                                          maxLines: 1,
+                                                          style: const TextStyle(
+                                                              color: Colors
+                                                                  .black54,
+                                                              fontSize: 16,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                              fontStyle:
+                                                                  FontStyle
+                                                                      .italic)),
+                                                      const SizedBox(
+                                                        height: 5,
+                                                      ),
+                                                      Expanded(
+                                                        child: Text(
+                                                          controller
+                                                                      .newArticles[
+                                                                          index]
+                                                                      .content ==
+                                                                  null
+                                                              ? "No Data Fetched"
+                                                              : controller
+                                                                  .newArticles[
+                                                                      index]
+                                                                  .description
+                                                                  .toString(),
+                                                          overflow: TextOverflow
+                                                              .ellipsis,
+                                                          maxLines: 3,
+                                                        ),
+                                                      )
+                                                      //  ),
+                                                    ],
+                                                  )),
                                                   controller.newArticles[index]
-                                                              .urlToImage ==
+                                                              .publishedAt ==
                                                           null
-                                                      ? Container(
+                                                      ? const Text('No Time')
+                                                      : Text(
+                                                          controller.time_ago(DateTime
+                                                              .parse(controller
+                                                                  .newArticles[
+                                                                      index]
+                                                                  .publishedAt
+                                                                  .toString())),
+                                                          style:
+                                                              const TextStyle(
+                                                                  color: Colors
+                                                                      .grey,
+                                                                  fontSize: 12),
+                                                        )
+                                                ],
+                                              ),
+                                            ),
+                                            const SizedBox(
+                                              width: 10,
+                                            ),
+                                            controller.newArticles[index]
+                                                        .urlToImage ==
+                                                    null
+                                                ? Container(
+                                                    color: Colors.grey.shade100,
+                                                    height: Get.height * .20,
+                                                    width: Get.width * .35,
+                                                    child: const Icon(
+                                                      Icons.image_not_supported,
+                                                      size: 100,
+                                                    ),
+                                                  )
+                                                : ClipRRect(
+                                                    child: Image.network(
+                                                      controller
+                                                          .newArticles[index]
+                                                          .urlToImage
+                                                          .toString(),
+                                                      fit: BoxFit.cover,
+                                                      height: Get.height * .20,
+                                                      width: Get.width * .35,
+                                                      errorBuilder:
+                                                          (_, __, ___) {
+                                                        return Container(
                                                           color: Colors
                                                               .grey.shade100,
                                                           height:
@@ -396,53 +408,21 @@ class NewHomeView extends GetView<NewHomeController> {
                                                                 .image_not_supported,
                                                             size: 100,
                                                           ),
-                                                        )
-                                                      : ClipRRect(
-                                                          child: Image.network(
-                                                            controller
-                                                                .newArticles[
-                                                                    index]
-                                                                .urlToImage
-                                                                .toString(),
-                                                            fit: BoxFit.cover,
-                                                            height: Get.height *
-                                                                .20,
-                                                            width:
-                                                                Get.width * .35,
-                                                            errorBuilder:
-                                                                (_, __, ___) {
-                                                              return Container(
-                                                                color: Colors
-                                                                    .grey
-                                                                    .shade100,
-                                                                height:
-                                                                    Get.height *
-                                                                        .20,
-                                                                width:
-                                                                    Get.width *
-                                                                        .35,
-                                                                child:
-                                                                    const Icon(
-                                                                  Icons
-                                                                      .image_not_supported,
-                                                                  size: 100,
-                                                                ),
-                                                              );
-                                                            },
-                                                          ),
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      8.0),
-                                                        )
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                        );
-                                      },
+                                                        );
+                                                      },
+                                                    ),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            8.0),
+                                                  )
+                                          ],
+                                        ),
+                                      ),
                                     ),
-                                  )),
+                                  );
+                                },
+                              ),
+                            )),
                       ),
                     ),
                   ],
@@ -452,7 +432,7 @@ class NewHomeView extends GetView<NewHomeController> {
 
   Widget bottomSheet() {
     return Padding(
-      padding: const EdgeInsets.only(left: 20, right: 20,bottom: 10),
+      padding: const EdgeInsets.only(left: 20, right: 20, bottom: 10),
       child: Obx(
         () => Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -554,12 +534,12 @@ class NewHomeView extends GetView<NewHomeController> {
             ),
             const Spacer(),
             Padding(
-              padding: const EdgeInsets.only( bottom: 10),
+              padding: const EdgeInsets.only(bottom: 10),
               child: Center(
                   child: PrimaryFilledButton(
                       onTap: () async {
                         // print(controller.getCountry());
-                        controller.page.value=1;
+                        controller.page.value = 1;
                         controller.c.value = controller.initCountry.value;
                         controller.displayCountryCode();
                         // print("CountryCode Here ===>>> ${controller.countryCode}");
