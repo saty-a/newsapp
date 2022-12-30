@@ -98,7 +98,7 @@ class DetailScreenView extends GetView<DetailScreenController> {
                     // Text((Get.arguments as Articles).content.toString(),maxLines: 10,)
                     (Get.arguments as Articles).content == null
                         ? const Text('Content is Empty')
-                        : Text((Get.arguments as Articles).content.toString(),style: const TextStyle(fontWeight: FontWeight.normal),),
+                        : Text((Get.arguments as Articles).description.toString(),style: const TextStyle(fontWeight: FontWeight.normal),),
                     const SizedBox(height: 10,),
                     InkWell(
                       child: const Text('See full story >',

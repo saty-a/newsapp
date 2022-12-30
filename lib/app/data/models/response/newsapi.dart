@@ -34,28 +34,27 @@ class Articles {
   String? description;
   String? url;
   String? urlToImage;
-  String? publishedAt;
+  DateTime? publishedAt;
   String? content;
 
   Articles(
       {this.source,
-        this.author,
-        this.title,
-        this.description,
-        this.url,
-        this.urlToImage,
-        this.publishedAt,
-        this.content});
+      this.author,
+      this.title,
+      this.description,
+      this.url,
+      this.urlToImage,
+      this.publishedAt,
+      this.content});
 
   Articles.fromJson(Map<String, dynamic> json) {
-    source =
-    json['source'] != null ? Source.fromJson(json['source']) : null;
+    source = json['source'] != null ? Source.fromJson(json['source']) : null;
     author = json['author'];
     title = json['title'];
     description = json['description'];
     url = json['url'];
     urlToImage = json['urlToImage'];
-    publishedAt = json['publishedAt'];
+    publishedAt = DateTime.parse(json["publishedAt"]);
     content = json['content'];
   }
 
@@ -69,7 +68,7 @@ class Articles {
     data['description'] = description;
     data['url'] = url;
     data['urlToImage'] = urlToImage;
-    data['publishedAt'] = publishedAt;
+    data["publishedAt"] = publishedAt!.toIso8601String();
     data['content'] = content;
     return data;
   }

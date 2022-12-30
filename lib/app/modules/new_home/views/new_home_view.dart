@@ -104,12 +104,18 @@ class NewHomeView extends GetView<NewHomeController> {
         child: Obx(
           () => controller.isFilter.value == true
               ? Badge(
-                  child: const Icon(Icons.filter_alt_outlined,size: 35,),
+                  child: const Icon(
+                    Icons.filter_alt_outlined,
+                    size: 35,
+                  ),
                   badgeColor: Colors.redAccent,
                   toAnimate: true,
-                  position: BadgePosition.bottomEnd(bottom: 26,end: -2),
+                  position: BadgePosition.bottomEnd(bottom: 26, end: -2),
                 )
-              : const Icon(Icons.filter_alt_outlined,size: 35,),
+              : const Icon(
+                  Icons.filter_alt_outlined,
+                  size: 35,
+                ),
         ),
       ),
       body: Obx(() => !(controller.isInternetConnected.value)
@@ -151,7 +157,8 @@ class NewHomeView extends GetView<NewHomeController> {
                             transition: Transition.fadeIn);
                       },
                       child: Padding(
-                        padding: const EdgeInsets.only(top: 20.0,left: 20,right: 20,bottom: 10),
+                        padding: const EdgeInsets.only(
+                            top: 20.0, left: 20, right: 20, bottom: 10),
                         child: Container(
                             padding: const EdgeInsets.all(15),
                             width: double.infinity,
@@ -207,15 +214,12 @@ class NewHomeView extends GetView<NewHomeController> {
                                       onChanged: (value) {
                                         controller
                                             .setSelected(value.toString());
-                                        if (value == controller.sortList[0]) {
-                                          controller.sort.value = 'newest';
-                                          controller.getNewsList();
-                                        } else if (value ==
-                                            controller.sortList[2]) {
-                                          controller.sort.value = 'oldest';
-                                          controller.getNewsList();
-                                        }
                                         controller.update();
+                                        controller.sortArticles(
+                                            value.toString().toLowerCase() ==
+                                                    'Newest'.toLowerCase()
+                                                ? true
+                                                : false);
                                       },
                                       value: controller.selectedDrowpdown.value,
                                       items: [
@@ -262,8 +266,10 @@ class NewHomeView extends GetView<NewHomeController> {
                                     ),
                                   )
                                 : RefreshIndicator(
-                              onRefresh: (){return controller.getNewsList();},
-                                  child: ListView.builder(
+                                    onRefresh: () {
+                                      return controller.getNewsList();
+                                    },
+                                    child: ListView.builder(
                                       itemCount: controller.newArticles.length,
                                       padding: const EdgeInsets.all(10),
                                       itemBuilder: (context, index) {
@@ -275,8 +281,8 @@ class NewHomeView extends GetView<NewHomeController> {
                                           },
                                           child: Container(
                                             height: Get.height * .15,
-                                            margin:
-                                                const EdgeInsets.only(bottom: 16),
+                                            margin: const EdgeInsets.only(
+                                                bottom: 16),
                                             decoration: BoxDecoration(
                                               color: Colors.white,
                                               boxShadow: [
@@ -300,7 +306,8 @@ class NewHomeView extends GetView<NewHomeController> {
                                                   Expanded(
                                                     child: Column(
                                                       mainAxisAlignment:
-                                                          MainAxisAlignment.start,
+                                                          MainAxisAlignment
+                                                              .start,
                                                       crossAxisAlignment:
                                                           CrossAxisAlignment
                                                               .start,
@@ -332,7 +339,8 @@ class NewHomeView extends GetView<NewHomeController> {
                                                                 style: const TextStyle(
                                                                     color: Colors
                                                                         .black54,
-                                                                    fontSize: 16,
+                                                                    fontSize:
+                                                                        16,
                                                                     fontWeight:
                                                                         FontWeight
                                                                             .bold,
@@ -369,17 +377,17 @@ class NewHomeView extends GetView<NewHomeController> {
                                                                 null
                                                             ? const Text(
                                                                 'No Time')
-                                                            :  Text(
-                                                                controller.time_ago(
-                                                                    DateTime.parse(controller
-                                                                        .newArticles[
-                                                                            index]
-                                                                        .publishedAt
-                                                                        .toString())),
+                                                            : Text(
+                                                                controller.time_ago(DateTime.parse(controller
+                                                                    .newArticles[
+                                                                        index]
+                                                                    .publishedAt
+                                                                    .toString())),
                                                                 style: const TextStyle(
                                                                     color: Colors
                                                                         .grey,
-                                                                    fontSize: 12),
+                                                                    fontSize:
+                                                                        12),
                                                               )
                                                       ],
                                                     ),
@@ -393,8 +401,10 @@ class NewHomeView extends GetView<NewHomeController> {
                                                       ? Container(
                                                           color: Colors
                                                               .grey.shade100,
-                                                          height: Get.height * .20,
-                                                          width: Get.width * .35,
+                                                          height:
+                                                              Get.height * .20,
+                                                          width:
+                                                              Get.width * .35,
                                                           child: const Icon(
                                                             Icons
                                                                 .image_not_supported,
@@ -409,18 +419,24 @@ class NewHomeView extends GetView<NewHomeController> {
                                                                 .urlToImage
                                                                 .toString(),
                                                             fit: BoxFit.cover,
-                                                            height:
-                                                                Get.height * .20,
+                                                            height: Get.height *
+                                                                .20,
                                                             width:
                                                                 Get.width * .35,
                                                             errorBuilder:
                                                                 (_, __, ___) {
                                                               return Container(
                                                                 color: Colors
-                                                                    .grey.shade100,
-                                                                height: Get.height * .20,
-                                                                width: Get.width * .35,
-                                                                child: const Icon(
+                                                                    .grey
+                                                                    .shade100,
+                                                                height:
+                                                                    Get.height *
+                                                                        .20,
+                                                                width:
+                                                                    Get.width *
+                                                                        .35,
+                                                                child:
+                                                                    const Icon(
                                                                   Icons
                                                                       .image_not_supported,
                                                                   size: 100,
@@ -430,7 +446,8 @@ class NewHomeView extends GetView<NewHomeController> {
                                                           ),
                                                           borderRadius:
                                                               BorderRadius
-                                                                  .circular(8.0),
+                                                                  .circular(
+                                                                      8.0),
                                                         )
                                                 ],
                                               ),
@@ -439,7 +456,7 @@ class NewHomeView extends GetView<NewHomeController> {
                                         );
                                       },
                                     ),
-                                )),
+                                  )),
                       ),
                     ),
                   ],
@@ -449,112 +466,119 @@ class NewHomeView extends GetView<NewHomeController> {
 
   Widget bottomSheet() {
     return Padding(
-      padding: const EdgeInsets.only(left: 20,right: 20,bottom: 20),
+      padding: const EdgeInsets.only(left: 20, right: 20, bottom: 20),
       child: Obx(
         () => Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const SizedBox(height: 6,),
-        Center(
-          child: Container(
-            height: 6,
-            width: Get.width*0.1,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              color: Colors.grey.shade400,
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const SizedBox(
+              height: 6,
             ),
-          ),
-        ),
-        const SizedBox(height: 20,),
-        const Text(
-          'Choose your location',
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18,color: Colors.black54),
-        ),
-        Divider(
-          height: 30,
-          color: Colors.grey[800],
-        ),
-
-        SizedBox(
-          height: Get.height*0.35,
-          child: ListView(
-            children: [
-            RadioListTile(
-              title: const Text("India"),
-              value: 'India',
-              controlAffinity: ListTileControlAffinity.trailing,
-              groupValue: controller.initCountry.value,
-              activeColor: AppColors.primaryColor,
-              onChanged: (value) {
-                controller.initCountry.value=value.toString();
-              },
+            Center(
+              child: Container(
+                height: 6,
+                width: Get.width * 0.1,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  color: Colors.grey.shade400,
+                ),
+              ),
             ),
-            RadioListTile(
-              title: const Text("USA"),
-              value: 'USA',
-              controlAffinity: ListTileControlAffinity.trailing,
-              groupValue: controller.initCountry.value,
-              activeColor: AppColors.primaryColor,
-              onChanged: (value) {
-                controller.initCountry.value=value.toString();
-              },
+            const SizedBox(
+              height: 20,
             ),
-            RadioListTile(
-              title: const Text("Australia"),
-              value: 'Australia',
-              controlAffinity: ListTileControlAffinity.trailing,
-              groupValue: controller.initCountry.value,
-              activeColor: AppColors.primaryColor,
-              onChanged: (value) {
-                controller.initCountry.value=value.toString();
-              },
+            const Text(
+              'Choose your location',
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18,
+                  color: Colors.black54),
             ),
-            RadioListTile(
-              title: const Text("Brazil"),
-              value: 'Brazil',
-              controlAffinity: ListTileControlAffinity.trailing,
-              groupValue: controller.initCountry.value,
-              activeColor: AppColors.primaryColor,
-              onChanged: (value) {
-                controller.initCountry.value=value.toString();
-              },
+            Divider(
+              height: 30,
+              color: Colors.grey[800],
             ),
-            RadioListTile(
-              title: const Text("England"),
-              value: 'England',
-              activeColor: AppColors.primaryColor,
-              controlAffinity: ListTileControlAffinity.trailing,
-              groupValue: controller.initCountry.value,
-              onChanged: (value) {
-                controller.initCountry.value=value.toString();
-              },
+            SizedBox(
+              height: Get.height * 0.35,
+              child: ListView(
+                children: [
+                  RadioListTile(
+                    title: const Text("India"),
+                    value: 'India',
+                    controlAffinity: ListTileControlAffinity.trailing,
+                    groupValue: controller.initCountry.value,
+                    activeColor: AppColors.primaryColor,
+                    onChanged: (value) {
+                      controller.initCountry.value = value.toString();
+                    },
+                  ),
+                  RadioListTile(
+                    title: const Text("USA"),
+                    value: 'USA',
+                    controlAffinity: ListTileControlAffinity.trailing,
+                    groupValue: controller.initCountry.value,
+                    activeColor: AppColors.primaryColor,
+                    onChanged: (value) {
+                      controller.initCountry.value = value.toString();
+                    },
+                  ),
+                  RadioListTile(
+                    title: const Text("Australia"),
+                    value: 'Australia',
+                    controlAffinity: ListTileControlAffinity.trailing,
+                    groupValue: controller.initCountry.value,
+                    activeColor: AppColors.primaryColor,
+                    onChanged: (value) {
+                      controller.initCountry.value = value.toString();
+                    },
+                  ),
+                  RadioListTile(
+                    title: const Text("Brazil"),
+                    value: 'Brazil',
+                    controlAffinity: ListTileControlAffinity.trailing,
+                    groupValue: controller.initCountry.value,
+                    activeColor: AppColors.primaryColor,
+                    onChanged: (value) {
+                      controller.initCountry.value = value.toString();
+                    },
+                  ),
+                  RadioListTile(
+                    title: const Text("England"),
+                    value: 'England',
+                    activeColor: AppColors.primaryColor,
+                    controlAffinity: ListTileControlAffinity.trailing,
+                    groupValue: controller.initCountry.value,
+                    onChanged: (value) {
+                      controller.initCountry.value = value.toString();
+                    },
+                  ),
+                  RadioListTile(
+                    title: const Text("Sweden"),
+                    value: 'Sweden',
+                    activeColor: AppColors.primaryColor,
+                    controlAffinity: ListTileControlAffinity.trailing,
+                    groupValue: controller.initCountry.value,
+                    onChanged: (value) {
+                      controller.initCountry.value = value.toString();
+                    },
+                  ),
+                ],
+              ),
             ),
-            RadioListTile(
-              title: const Text("Sweden"),
-              value: 'Sweden',
-              activeColor: AppColors.primaryColor,
-              controlAffinity: ListTileControlAffinity.trailing,
-              groupValue: controller.initCountry.value,
-              onChanged: (value) {
-                controller.initCountry.value=value.toString();
-              },
-            ),
-          ],),
-        ),
-        const Spacer(),
-        Center(
-            child: PrimaryFilledButton(
-                onTap: () async {
-                  // print(controller.getCountry());
-                  controller.c.value=controller.initCountry.value;
-                  controller.displayCountryCode();
-                  // print("CountryCode Here ===>>> ${controller.countryCode}");
-                  controller.getNewsList();
-                  Get.back();
-                },
-                text: 'Apply'))
-      ],
+            const Spacer(),
+            Center(
+                child: PrimaryFilledButton(
+                    onTap: () async {
+                      // print(controller.getCountry());
+                      controller.c.value = controller.initCountry.value;
+                      controller.displayCountryCode();
+                      // print("CountryCode Here ===>>> ${controller.countryCode}");
+                      controller.getNewsList();
+                      Get.back();
+                    },
+                    text: 'Apply'))
+          ],
         ),
       ),
     );
@@ -568,23 +592,30 @@ class NewHomeView extends GetView<NewHomeController> {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const SizedBox(height: 5,),
+          const SizedBox(
+            height: 5,
+          ),
           Center(
             child: Container(
               height: 6,
-              width: Get.width*0.1,
+              width: Get.width * 0.1,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20),
                 color: Colors.grey.shade400,
               ),
             ),
           ),
-          const SizedBox(height: 10,),
+          const SizedBox(
+            height: 10,
+          ),
           const Padding(
-            padding: EdgeInsets.only(left: 10,top: 10),
+            padding: EdgeInsets.only(left: 10, top: 10),
             child: Text(
               'Filter by sources',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18,color: Colors.black54),
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18,
+                  color: Colors.black54),
             ),
           ),
           Divider(
@@ -601,7 +632,9 @@ class NewHomeView extends GetView<NewHomeController> {
                           controller.ischeck[index] = value!;
                         },
                         title: Text(
-                            controller.sources.elementAt(index).toString(),style: const TextStyle(fontSize: 18),)));
+                          controller.sources.elementAt(index).toString(),
+                          style: const TextStyle(fontSize: 18),
+                        )));
                   })),
           const SizedBox(
             height: 20,

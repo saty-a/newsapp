@@ -20,7 +20,7 @@ class NewHomeController extends GetxController {
 
   var isLoading = true.obs;
   var isFilter = false.obs;
-  RxBool isInternetConnected=true.obs;
+  RxBool isInternetConnected = true.obs;
 
   //bottom sheet filter with checkbox functionality
   RxList ischeck = [].obs;
@@ -49,7 +49,6 @@ class NewHomeController extends GetxController {
         sourcesIds.value += '${ids.elementAt(i)},';
       }
     }
-
   }
 
   int sourceStringlength() {
@@ -64,8 +63,8 @@ class NewHomeController extends GetxController {
   // Time format
   // "publishedAt": "2022-12-20T07:08:00Z",
   String time_ago(DateTime dt) {
-    String aboutHourAgo=timeago.format(dt, allowFromNow: true, locale: 'en');
-    if(aboutHourAgo=='about an hour ago'){
+    String aboutHourAgo = timeago.format(dt, allowFromNow: true, locale: 'en');
+    if (aboutHourAgo == 'about an hour ago') {
       return 'About an hour ago';
     }
     return timeago.format(dt, allowFromNow: true, locale: 'en');
@@ -76,7 +75,7 @@ class NewHomeController extends GetxController {
 
   // for Location Info
   var initCountry = 'USA'.obs;
-  var c='India'.obs;
+  var c = 'India'.obs;
 
   //filter by country news
   RxString countryCode = 'us'.obs;
@@ -116,9 +115,17 @@ class NewHomeController extends GetxController {
     displayCountry(initCountry.value);
   }
 
+  sortArticles(bool isNewest) {
+    if (isNewest) {
+      newArticles.sort((a, b) => b.publishedAt!.compareTo(a.publishedAt!));
+    } else {
+      newArticles.sort((a, b) => a.publishedAt!.compareTo(b.publishedAt!));
+    }
+  }
+
   Future<void> getNewsList() async {
     try {
-      if (isFilter == false) {
+      if (isFilter.value == false) {
         changeUrlFunction();
       } else {
         filterUrlFunction();
@@ -178,17 +185,28 @@ class NewHomeController extends GetxController {
   void setSelected(String value) {
     selectedDrowpdown.value = value;
   }
+
   var connectionStatus = 0.obs;
 
   /// Listening Internet Connection Request in Stream.
   late StreamSubscription<InternetConnectionStatus> _listner;
 
-
-
   @override
   void onInit() {
     getNewsList();
-    print('connection status :${isInternetConnected.value.toString()}');
+    _listner = InternetConnectionChecker()
+        .onStatusChange
+        .listen((InternetConnectionStatus status) {
+      switch (status) {
+        case InternetConnectionStatus.connected:
+          connectionStatus.value = 1;
+          break;
+        case InternetConnectionStatus.disconnected:
+          connectionStatus.value = 0;
+          break;
+      }
+    });
+    print('connection status :${connectionStatus.value.toString()}');
     super.onInit();
   }
 
@@ -200,5 +218,6 @@ class NewHomeController extends GetxController {
   @override
   void onClose() {
     super.onClose();
+    _listner.cancel();
   }
 }

@@ -25,7 +25,7 @@ class DetailScreenController extends GetxController {
   void contentFilter(String st){
     if(st.contains('...',)){
       String s=st.split('...') as String;
-      filterContent='sp' as RxString;
+      filterContent=st[0] as RxString;
     }
     filterContent=st as RxString;
   }
