@@ -104,7 +104,7 @@ class DetailScreenView extends GetView<DetailScreenController> {
                       child: const Text('See full story >',
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              color: AppColors.primaryColor)),
+                              color: Colors.blueAccent)),
                       onTap: () async {
                         var url = (Get.arguments as Articles).url.toString();
                         if (await canLaunch(url)) {

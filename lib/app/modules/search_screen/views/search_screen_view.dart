@@ -30,7 +30,7 @@ class SearchScreenView extends GetView<SearchScreenController> {
               padding: const EdgeInsets.all(20),
               child: CupertinoSearchTextField(
                 suffixMode: OverlayVisibilityMode.always,
-                suffixIcon: const Icon(Icons.search),
+                suffixIcon: const Icon(Icons.search,size: 30,color: Colors.black,),
                 onSuffixTap: (){},
                 suffixInsets: const EdgeInsets.only(right: 10),
                 autofocus: true,
@@ -108,7 +108,7 @@ class SearchScreenView extends GetView<SearchScreenController> {
                                 .newArticles[index]);
                       },
                       child: Container(
-                        height: Get.height*.15,
+                        height: Get.height*.18,
                         margin: const EdgeInsets.only(
                             bottom: 16),
                         decoration: BoxDecoration(
@@ -216,42 +216,44 @@ class SearchScreenView extends GetView<SearchScreenController> {
                                   .urlToImage ==
                                   null
                                   ? Container(
-                                color: Colors
-                                    .grey.shade100,
-                                height: Get.height*.20,
-                                width: Get.width*.35,
+                                color: Colors.grey.shade100,
+                                height: Get.height * .20,
+                                width: Get.width * .35,
                                 child: const Icon(
-                                  Icons
-                                      .image_not_supported,
+                                  Icons.image_not_supported,
+                                  color: Colors.grey,
                                   size: 100,
                                 ),
                               )
                                   : ClipRRect(
                                 child: Image.network(
                                   controller
-                                      .newArticles[
-                                  index]
+                                      .newArticles[index]
                                       .urlToImage
                                       .toString(),
                                   fit: BoxFit.cover,
-                                  height: Get.height*.20,
-                                  width: Get.width*.35,
+                                  height: Get.height * .20,
+                                  width: Get.width * .35,
                                   errorBuilder:
                                       (_, __, ___) {
-                                    return const SizedBox(
-                                      height: 150,
-                                      width: 150,
-                                      child: Icon(
+                                    return Container(
+                                      color: Colors
+                                          .grey.shade100,
+                                      height:
+                                      Get.height * .20,
+                                      width:
+                                      Get.width * .35,
+                                      child: const Icon(
                                         Icons
                                             .image_not_supported,
                                         size: 100,
+                                        color: Colors.grey,
                                       ),
                                     );
                                   },
                                 ),
                                 borderRadius:
-                                BorderRadius
-                                    .circular(
+                                BorderRadius.circular(
                                     8.0),
                               )
                             ],

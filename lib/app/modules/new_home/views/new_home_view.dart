@@ -48,7 +48,6 @@ class NewHomeView extends GetView<NewHomeController> {
             onTap: () {
               controller.isFilter.value = false;
               controller.changeUrlFunction();
-
               showModalBottomSheet(
                   context: context,
                   shape: RoundedRectangleBorder(
@@ -58,32 +57,32 @@ class NewHomeView extends GetView<NewHomeController> {
                     return bottomSheet();
                   });
             },
-            child: Padding(
-              padding: const EdgeInsets.only(right: 20, top: 10),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Padding(
-                    padding: EdgeInsets.only(bottom: 4),
-                    child: Text(
-                      'LOCATION',
-                      style: TextStyle(fontSize: 10),
-                    ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Padding(
+                  padding: EdgeInsets.only(right: 20,left:10,top: 10),
+                  child: Text(
+                    'LOCATION',
+                    style: TextStyle(fontSize: 10),
                   ),
-                  Row(
-                    children: [
-                      const Icon(
-                        Icons.location_on,
-                        size: 14,
-                      ),
-                      Obx(() => Text(
+                ),
+                Row(
+                  children: [
+                    const Icon(
+                      Icons.location_on,
+                      size: 14,
+                    ),
+                    Obx(() => Padding(
+                          padding: const EdgeInsets.only(right: 10),
+                          child: Text(
                             controller.c.value,
                             style: const TextStyle(fontSize: 14),
-                          )),
-                    ],
-                  )
-                ],
-              ),
+                          ),
+                        )),
+                  ],
+                )
+              ],
             ),
           )
         ],
@@ -92,7 +91,7 @@ class NewHomeView extends GetView<NewHomeController> {
         onPressed: () {
           debugPrint(controller.articles.toString());
           controller.sourceList();
-          showModalBottomSheet(
+          Future<void> bottomSheetAwaitClose = showModalBottomSheet(
               context: context,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(5.0),
@@ -100,10 +99,14 @@ class NewHomeView extends GetView<NewHomeController> {
               builder: (context) {
                 return bottomSheetFilter();
               });
+
+          bottomSheetAwaitClose
+              .then((void value) => controller.isFilterCheckbox());
         },
         backgroundColor: AppColors.primaryColor,
         child: Obx(
-          () => controller.isFilter.value == true
+          () => controller.isFilter.value == true &&
+                  controller.isFilterBottomSheetValue.value
               ? Badge(
                   child: const Icon(
                     Icons.filter_alt_outlined,
@@ -382,6 +385,7 @@ class NewHomeView extends GetView<NewHomeController> {
                                                     width: Get.width * .35,
                                                     child: const Icon(
                                                       Icons.image_not_supported,
+                                                      color: Colors.grey,
                                                       size: 100,
                                                     ),
                                                   )
@@ -404,10 +408,11 @@ class NewHomeView extends GetView<NewHomeController> {
                                                           width:
                                                               Get.width * .35,
                                                           child: const Icon(
-                                                            Icons
-                                                                .image_not_supported,
-                                                            size: 100,
-                                                          ),
+                                                              Icons
+                                                                  .image_not_supported,
+                                                              size: 100,
+                                                              color:
+                                                                  Colors.grey),
                                                         );
                                                       },
                                                     ),
@@ -465,8 +470,7 @@ class NewHomeView extends GetView<NewHomeController> {
               height: 30,
               color: Colors.grey[800],
             ),
-            SizedBox(
-              height: Get.height * .37,
+            Expanded(
               child: ListView(
                 children: [
                   RadioListTile(
@@ -532,12 +536,26 @@ class NewHomeView extends GetView<NewHomeController> {
                 ],
               ),
             ),
-            const Spacer(),
-            Padding(
-              padding: const EdgeInsets.only(bottom: 10),
-              child: Center(
-                  child: PrimaryFilledButton(
-                      onTap: () async {
+            /*const Spacer(),*/
+            Center(
+                child: SizedBox(
+                  height: 50,
+                  width: 150,
+                  child: ElevatedButton(
+                    child: const Text('Apply',style: TextStyle(fontSize: 16),),
+                   style: ElevatedButton.styleFrom(
+                      backgroundColor: AppColors.primaryColor,
+                      elevation: 10,
+                      surfaceTintColor: Colors.blueAccent,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8)
+                      ),
+                      side: const BorderSide(
+                          width: 2,
+                          color: Colors.blueAccent
+                      )
+                  ),
+                      onPressed: () async {
                         // print(controller.getCountry());
                         controller.page.value = 1;
                         controller.c.value = controller.initCountry.value;
@@ -545,9 +563,10 @@ class NewHomeView extends GetView<NewHomeController> {
                         // print("CountryCode Here ===>>> ${controller.countryCode}");
                         controller.firstLoad();
                         Get.back();
-                      },
-                      text: 'Apply')),
-            )
+                      }, ),
+                ),
+            ),
+            const SizedBox(height: 10,)
           ],
         ),
       ),
@@ -585,7 +604,7 @@ class NewHomeView extends GetView<NewHomeController> {
               style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 18,
-                  color: Colors.black54),
+                  color: Colors.black87),
             ),
           ),
           Divider(
@@ -596,35 +615,82 @@ class NewHomeView extends GetView<NewHomeController> {
               child: ListView.builder(
                   itemCount: controller.sources.length,
                   itemBuilder: (context, index) {
-                    return Obx(() => CheckboxListTile(
-                        value: controller.ischeck[index],
-                        onChanged: (value) {
-                          controller.ischeck[index] = value!;
-                        },
-                        title: Text(
-                          controller.sources.elementAt(index).toString(),
-                          style: const TextStyle(fontSize: 18),
-                        )));
+                    return Obx(() => InkWell(
+                      onTap: (){
+                        controller.ischeck[index] =
+                        !controller.ischeck[index];
+                      },
+                      child: ListTile(
+                          trailing: controller.ischeck[index]
+                                  ? const Icon(
+                                      Icons.check_box_outlined,
+                                      color: AppColors.primaryColor,
+                                    )
+                                  : const Icon(Icons.check_box_outline_blank),
+                          title: controller.ischeck[index] == false
+                              ? Text(
+                                  controller.sources.elementAt(index).toString(),
+                                )
+                              : Text(
+                                  controller.sources.elementAt(index).toString(),
+                                  style: const TextStyle(
+                                     color: Colors.blueAccent,),
+                                )),
+                    ));
                   })),
           const SizedBox(
             height: 20,
           ),
+        // GestureDetector(
+        //     onTap: (){
+        //       print("Container clicked");
+        //     },
+        //     child:  Container(
+        //       width:200,
+        //       padding: new EdgeInsets.fromLTRB(20.0, 40.0, 20.0, 40.0),
+        //       color: AppColors.primaryColor,
+        //       child: new Column(
+        //           children: [
+        //             Text("Apply Filter",style: TextStyle(color: Colors.white,fontSize: 18),),
+        //           ]
+        //       ),
+        //     )
+        // ),
+
           Center(
-            child: PrimaryFilledButton(
-              onTap: () {
-                controller.page.value = 1;
-                controller.filterByNews();
-                if (controller.sourceStringlength() > 0) {
-                  controller.isFilter.value = true;
-                  controller.firstLoad();
-                  Get.back();
-                } else {
-                  Get.snackbar('Alert', 'Select any one option',
-                      snackPosition: SnackPosition.BOTTOM,
-                      backgroundColor: Colors.grey);
-                }
-              },
-              text: 'Apply Filter',
+            child: SizedBox(
+              height: 50,
+              width: 150,
+              child: ElevatedButton(
+                child: const Text('Apply Filter',style: TextStyle(fontSize: 16),),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: AppColors.primaryColor,
+                  elevation: 10,
+                  surfaceTintColor: Colors.blueAccent,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8)
+                  ),
+                  side: const BorderSide(
+                    width: 2,
+                    color: Colors.blueAccent
+                  )
+                ),
+                onPressed: () {
+                  controller.page.value = 1;
+                  controller.filterByNews();
+                  if (controller.sourceStringlength() > 0) {
+                    controller.isFilter.value = true;
+                    controller.firstLoad();
+                    controller.isFilterCheckbox();
+                    Get.back();
+                  } else {
+                    Get.snackbar('Alert', 'Select any one option',
+                        snackPosition: SnackPosition.BOTTOM,
+                        backgroundColor: Colors.grey);
+                  }
+                },
+
+              ),
             ),
           )
         ],

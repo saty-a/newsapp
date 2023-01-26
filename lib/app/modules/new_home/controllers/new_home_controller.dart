@@ -25,10 +25,11 @@ class NewHomeController extends GetxController {
 
   var isLoading = true.obs;
   var isFilter = false.obs;
+  RxBool isFilterBottomSheetValue=false.obs;
   RxBool isInternetConnected = true.obs;
 
   //bottom sheet filter with checkbox functionality
-  RxList ischeck = [].obs;
+  RxList<bool> ischeck = RxList();
   RxString sourcesIds = ''.obs;
 
   RxList<dynamic>? articles;
@@ -45,6 +46,19 @@ class NewHomeController extends GetxController {
         ischeck.add(false);
       }
     }
+  }
+
+  // checking all the checkbox if there value is true or false
+  void isFilterCheckbox(){
+    for(int i=0;i<ischeck.length;i++){
+      if(ischeck[i]==true){
+        isFilterBottomSheetValue.value=true;
+        break;
+      }else if(ischeck[i]==false){
+        isFilterBottomSheetValue.value=false;
+      }
+    }
+    debugPrint("displaying the bool value:->> ${isFilterBottomSheetValue.value}");
   }
 
   void resetChecks() {

@@ -7,7 +7,7 @@ class Env {
   static const newsUrl="https://newsapi.org/v2/top-headlines?country=us}&category=business&apiKey=c230ea95361e4af4af72e85d55e0e79b";
   static const baseNewsLink="https://newsapi.org/v2/top-headlines?";
   static const baseSearchLink="https://newsapi.org/v2/everything?q=";
-  static const apikey='adb8e872f1a94a01959ba1c9d35a3da0';
+  static const apikey='6fb44c9291e04d2aa41da424c8cf5653';
 
 
   // static const apiKey = "ed93e11eb1114a6e8c8c34322f8d836b";
