@@ -1,3 +1,4 @@
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -61,10 +62,10 @@ class NewHomeView extends GetView<NewHomeController> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Padding(
-                  padding: EdgeInsets.only(right: 20,left:10,top: 10),
+                  padding: EdgeInsets.only(right: 20,top: 10),
                   child: Text(
                     'LOCATION',
-                    style: TextStyle(fontSize: 10),
+                    style: TextStyle(fontSize: 12),
                   ),
                 ),
                 Row(
@@ -73,13 +74,10 @@ class NewHomeView extends GetView<NewHomeController> {
                       Icons.location_on,
                       size: 14,
                     ),
-                    Obx(() => Padding(
-                          padding: const EdgeInsets.only(right: 10),
-                          child: Text(
-                            controller.c.value,
-                            style: const TextStyle(fontSize: 14),
-                          ),
-                        )),
+                    Obx(() => Text(
+                      controller.c.value,
+                      // style: const TextStyle(fontSize: 14),
+                    )),
                   ],
                 )
               ],
@@ -204,42 +202,47 @@ class NewHomeView extends GetView<NewHomeController> {
                               'Sort:',
                               style: TextStyle(color: Colors.grey),
                             ),
-                            const SizedBox(
-                              width: 5,
-                            ),
+
                             Padding(
                               padding: const EdgeInsets.only(right: 10),
-                              child: Obx(() => DropdownButton(
-                                      underline: const SizedBox(),
-                                      borderRadius: BorderRadius.circular(10),
-                                      hint: const Text(
-                                        'Select',
-                                      ),
-                                      onChanged: (value) {
-                                        controller.shouldBeNewest.value =
-                                            value.toString().toLowerCase() ==
-                                                    'Newest'.toLowerCase()
-                                                ? true
-                                                : false;
-                                        controller
-                                            .setSelected(value.toString());
-                                        controller.update();
-                                        controller.sortArticles(
-                                            value.toString().toLowerCase() ==
-                                                    'Newest'.toLowerCase()
-                                                ? true
-                                                : false);
-                                      },
-                                      value: controller.selectedDrowpdown.value,
-                                      items: [
-                                        for (var data in controller.sortList)
-                                          DropdownMenuItem(
-                                            child: Text(
-                                              data,
-                                            ),
-                                            value: data,
-                                          )
-                                      ])),
+                              child: Obx(() => DropdownButtonHideUnderline(child: DropdownButton2(items:
+                              controller.sortList
+                                  .map((item) => DropdownMenuItem<String>(
+                                value: item,
+                                child: Padding(
+                                  padding: EdgeInsets.only(left: 8),
+                                  child: Text(
+                                    item,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ),
+                              ))
+                                  .toList(),
+                                itemPadding: EdgeInsets.zero,
+                                hint:const Text('Sort'),
+                                dropdownPadding:const EdgeInsets.only(left: 0,right: 0,top: 0,bottom: 0),
+                                value: controller.selectedDrowpdown.value,
+                                scrollbarRadius:const Radius.circular(16),
+                                onChanged: (value){
+                                  controller.shouldBeNewest.value=value.toString().toLowerCase() ==
+                                      'Newest'.toLowerCase()
+                                      ? true
+                                      : false;
+                                  controller
+                                      .setSelected(value.toString());
+                                  controller.update();
+                                  controller.sortArticles(
+                                      value.toString().toLowerCase() ==
+                                          'Newest'.toLowerCase()
+                                          ? true
+                                          : false);
+                                },
+                                dropdownDecoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(6),
+                                ),
+
+                              ),)
+                              ),
                             )
                           ],
                         ),
